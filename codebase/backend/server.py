@@ -1,21 +1,17 @@
 """
-An — Triage HTTP server (Gemini-backed)
-========================================
-Cầu nối giữa frontend React và Google Gemini cho luồng phân loại triệu chứng.
+An — Triage HTTP server
+========================
+Cầu nối giữa frontend React và logic agent trong chat.py.
 
 - POST /triage   body: { "history": [{role:"user"|"ai", text}], "message": "..." }
-                 trả về: { "events": [...], "profile": {...} }  (đúng schema UI dùng)
-- GET  /health   kiểm tra server + đã có GEMINI_API_KEY chưa
+                 trả về: { "events": [...], "profile": {...} }
+- GET  /health   kiểm tra server
 
 Chạy:
     cd codebase/backend
-    pip install -r requirements.txt          # cần google-genai
-    cp .env.example .env  &&  điền GEMINI_API_KEY
-    python3 server.py                         # mặc định http://localhost:8787
+    python3 server.py                   # mặc định http://localhost:8787
 
 Rồi ở frontend (codebase/.env):  VITE_TRIAGE_API_URL=http://localhost:8787/triage
-
-Chỉ dùng stdlib cho tầng HTTP (không cần Flask). Gemini gọi qua GeminiProvider có sẵn.
 """
 from __future__ import annotations
 
@@ -25,80 +21,39 @@ import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from env_loader import load_dotenv
-from providers.gemini_provider import GeminiProvider
+from env_loader import load_lab_env
+from providers import make_provider
+from tools import load_tool_declarations, to_openai_tools
 
+# Import the core agent loop and helpers from chat.py
+from chat import run_model_tool_loop, trim_history
+
+# ---------------------------------------------------------------------------
+# Bootstrap — mirrors what chat.py does in main()
+# ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
-load_dotenv(ROOT / ".env")
+ARTIFACTS_DIR = ROOT / "artifacts"
+load_lab_env(ROOT)
 
+PROVIDER_NAME = os.getenv("TRIAGE_PROVIDER", "gemini")
+MODEL = os.getenv("TRIAGE_MODEL", None)          # None → provider's default_model
+HISTORY_WINDOW = int(os.getenv("TRIAGE_HISTORY_WINDOW", "5"))
+MAX_TOOL_ROUNDS = int(os.getenv("TRIAGE_MAX_TOOL_ROUNDS", "4"))
 PORT = int(os.getenv("TRIAGE_PORT", "8787"))
-MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-PROVIDER = GeminiProvider(api_key_env="GEMINI_API_KEY", default_model=MODEL)
+
+SYSTEM_PROMPT = (ARTIFACTS_DIR / "system_prompt.md").read_text(encoding="utf-8")
+TOOL_DECLARATIONS = load_tool_declarations(ARTIFACTS_DIR / "tools.yaml")
+OPENAI_TOOLS = to_openai_tools(TOOL_DECLARATIONS)
+PROVIDER = make_provider(PROVIDER_NAME)
+SELECTED_MODEL = MODEL or getattr(PROVIDER, "default_model", None)
+
 
 # ---------------------------------------------------------------------------
-# System prompt — mã hoá toàn bộ quy tắc triage (theo spec/flow-core.md)
+# Helpers
 # ---------------------------------------------------------------------------
-SYSTEM_PROMPT = """\
-Bạn là "An" — trợ lý phân loại triệu chứng (symptom triage) bằng tiếng Việt.
-Bạn KHÔNG chẩn đoán bệnh; bạn phân loại mức độ khẩn cấp và gợi ý bước tiếp theo.
-
-NGUYÊN TẮC:
-1. Luôn XÁC NHẬN lại những triệu chứng đã hiểu trước khi hỏi tiếp hoặc ra kết quả.
-2. Hỏi tối đa 3 lượt follow-up, MỖI LƯỢT CHỈ 1 CÂU, kèm 2-3 lựa chọn trả lời nhanh.
-   Sau 3 lượt phải ra kết quả dù độ chắc chắn thấp.
-3. RED FLAG (đau ngực, tức ngực, khó thở, đau đầu dữ dội đột ngột, liệt/tê nửa người/
-   méo miệng, ngất/mất ý thức, nôn ra máu/đi ngoài ra máu, co giật) -> BỎ QUA toàn bộ
-   flow, trả về NGAY 1 event type "emergency", KHÔNG hỏi thêm câu nào.
-4. Ba mức triage: "green" = tự chăm sóc tại nhà; "amber" = nên gặp bác sĩ trong 24h;
-   "red" = cần cấp cứu ngay.
-5. Mô tả mơ hồ/thiếu thông tin (vd chỉ "mệt, chóng mặt") -> giữ confidence THẤP, liệt kê
-   thông tin còn thiếu, ưu tiên hỏi thêm thay vì kết luận sớm.
-6. Mọi kết quả luôn có lý do "Dựa trên: <triệu chứng>" và mang tính tham khảo.
-7. Ngôn ngữ ấm áp, giảm lo âu; xưng "mình", gọi người dùng là "bạn".
-
-NHIỆM VỤ: Dựa trên TOÀN BỘ hội thoại + tin nhắn mới nhất, quyết định bước kế tiếp và
-TRẢ VỀ DUY NHẤT một JSON hợp lệ (không kèm chữ nào khác, không markdown) theo schema:
-
-{
-  "events": [
-    // chọn các event phù hợp, theo thứ tự hiển thị:
-    { "type": "message", "text": "...", "confirm": true|false },        // câu xác nhận/nói thường
-    { "type": "question", "text": "câu hỏi", "quick": ["...","..."] },  // 1 câu hỏi + nút nhanh
-    { "type": "result", "triage": {                                     // kết quả cuối
-        "level": "green"|"amber"|"red",
-        "eyebrow": "Khuyến nghị",
-        "label": "Theo dõi & tự chăm sóc tại nhà" | "Nên gặp bác sĩ trong 24 giờ" | "Cần hỗ trợ y tế ngay",
-        "icon": "🌿" | "🩺" | "🚨",
-        "reason": "Dựa trên ... . Giải thích ngắn.",
-        "conditions": [ {"name":"...", "pct":""} ],   // có thể rỗng; CHỈ liệt kê khả năng, không khẳng định
-        "actions": ["việc nên làm 1","việc nên làm 2"],
-        "missing": ["thông tin còn thiếu nếu confidence thấp"],
-        "confTier": "low"|"mid"|"high",
-        "confidence": 0-100,
-        "ctas": [ {"label":"Lưu tóm tắt","kind":"primary"}, {"label":"Bắt đầu lại","kind":"ghost"} ]
-    } },
-    { "type": "emergency", "flag": "dấu hiệu nguy hiểm đã phát hiện" }   // CHỈ khi red flag
-  ],
-  "profile": {
-    "stage": "intake"|"questioning"|"done"|"emergency",
-    "symptoms": [ {"label":"Sốt","specific":true} ],   // triệu chứng đã trích xuất, viết hoa đầu
-    "confidence": 0-100,
-    "confTier": "none"|"low"|"mid"|"high",
-    "missing": ["..."],
-    "facts": { "duration": null|"2 ngày", "temp": null|38.5, "severity": null|"nhẹ", "associated": null|true|false, "context": null|"bệnh nền..." }
-  }
-}
-
-QUY TẮC EVENT THEO TÌNH HUỐNG:
-- Lượt đầu mô tả triệu chứng (chưa đủ): events = [message(confirm), question]. stage="questioning".
-- Còn hỏi tiếp: events = [question]. stage="questioning".
-- Đã đủ / hết 3 lượt: events = [message, result]. stage="done".
-- Red flag bất kỳ lúc nào: events = [emergency]. stage="emergency".
-Chỉ trả JSON. Không thêm lời dẫn.
-"""
-
 
 def _extract_json(text: str) -> dict | None:
+    """Try to pull a JSON object out of a freeform string."""
     if not text:
         return None
     cleaned = re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
@@ -110,47 +65,116 @@ def _extract_json(text: str) -> dict | None:
     end = cleaned.rfind("}")
     if start != -1 and end != -1 and end > start:
         try:
-            return json.loads(cleaned[start : end + 1])
+            return json.loads(cleaned[start: end + 1])
         except Exception:
             return None
     return None
 
 
 def _build_messages(history: list[dict], message: str) -> list[dict]:
-    msgs: list[dict] = [{"role": "system", "content": SYSTEM_PROMPT}]
+    """
+    Convert frontend history  [{role:"user"|"ai", text}]
+    into the [{role, content}] format chat.py / providers expect,
+    then append the new user message.
+    History is trimmed to HISTORY_WINDOW pairs via chat.trim_history.
+    """
+    flat: list[dict[str, str]] = []
     for turn in history or []:
         role = turn.get("role")
         text = (turn.get("text") or "").strip()
         if not text:
             continue
-        msgs.append({"role": "assistant" if role == "ai" else "user", "content": text})
-    msgs.append({"role": "user", "content": (message or "").strip()})
-    return msgs
+        flat.append({
+            "role": "assistant" if role == "ai" else "user",
+            "content": text,
+        })
+
+    trimmed = trim_history(flat, HISTORY_WINDOW)
+
+    return [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        *trimmed,
+        {"role": "user", "content": (message or "").strip()},
+    ]
 
 
-def _normalize(data: dict) -> dict:
-    """Đảm bảo schema tối thiểu để UI không vỡ."""
-    events = data.get("events") if isinstance(data.get("events"), list) else []
-    profile = data.get("profile") if isinstance(data.get("profile"), dict) else {}
+def _normalize_profile(profile: dict) -> dict:
+    """Ensure minimum profile keys so the frontend never crashes."""
     profile.setdefault("stage", "questioning")
     profile.setdefault("symptoms", [])
     profile.setdefault("confidence", 0)
     profile.setdefault("confTier", "none")
     profile.setdefault("missing", [])
     profile.setdefault("facts", {})
+    return profile
+
+
+def _agent_result_to_response(result: dict) -> dict:
+    """
+    Convert run_model_tool_loop output → { events, profile } that the frontend expects.
+
+    run_model_tool_loop returns:
+        {
+            "status": "answered" | "waiting_for_user" | "max_tool_rounds",
+            "assistant_text": str,
+            "rounds": [...],
+            "tool_events": [...],
+        }
+
+    The assistant is prompted (via system_prompt.md) to reply with a JSON object
+    that matches the { events, profile } schema.  We try to parse that first.
+    If parsing fails we fall back to a plain message event.
+    """
+    assistant_text = result.get("assistant_text", "")
+    status = result.get("status", "answered")
+
+    # ── Happy path: LLM returned valid JSON in assistant_text ──────────────
+    parsed = _extract_json(assistant_text)
+    if parsed and "events" in parsed:
+        events = parsed["events"] if isinstance(parsed["events"], list) else []
+        profile = _normalize_profile(
+            parsed.get("profile") if isinstance(parsed.get("profile"), dict) else {}
+        )
+        return {"events": events, "profile": profile}
+
+    # ── Fallback: wrap raw text in a message event ──────────────────────────
+    # Determine stage from status
+    stage_map = {
+        "waiting_for_user": "questioning",
+        "max_tool_rounds": "done",
+        "answered": "done",
+    }
+    stage = stage_map.get(status, "questioning")
+
+    events: list[dict] = [{"type": "message", "text": assistant_text, "confirm": False}]
+    profile = _normalize_profile({"stage": stage})
     return {"events": events, "profile": profile}
 
 
+# ---------------------------------------------------------------------------
+# Core triage function — called by the HTTP handler
+# ---------------------------------------------------------------------------
+
 def triage(payload: dict) -> dict:
     messages = _build_messages(payload.get("history", []), payload.get("message", ""))
-    resp = PROVIDER.complete(messages, tools=None, model=MODEL, temperature=0.3)
-    parsed = _extract_json(resp.text or "")
-    if not parsed:
-        raise ValueError(f"Gemini không trả JSON hợp lệ: {(resp.text or '')[:200]}")
-    return _normalize(parsed)
 
+    result = run_model_tool_loop(
+        provider=PROVIDER,
+        messages=messages,
+        tools=OPENAI_TOOLS,
+        model=SELECTED_MODEL,
+        max_tool_rounds=MAX_TOOL_ROUNDS,
+    )
+
+    return _agent_result_to_response(result)
+
+
+# ---------------------------------------------------------------------------
+# HTTP server
+# ---------------------------------------------------------------------------
 
 class Handler(BaseHTTPRequestHandler):
+
     def _cors(self) -> None:
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
@@ -172,7 +196,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         if self.path.rstrip("/") == "/health":
-            self._json(200, {"ok": True, "model": MODEL, "hasKey": bool(os.getenv("GEMINI_API_KEY"))})
+            self._json(200, {
+                "ok": True,
+                "provider": PROVIDER_NAME,
+                "model": SELECTED_MODEL,
+                "port": PORT,
+            })
         else:
             self._json(404, {"error": "not_found"})
 
@@ -180,27 +209,32 @@ class Handler(BaseHTTPRequestHandler):
         if self.path.rstrip("/") != "/triage":
             self._json(404, {"error": "not_found"})
             return
+
         try:
             length = int(self.headers.get("Content-Length", 0))
             payload = json.loads(self.rfile.read(length) or b"{}")
         except Exception as exc:
             self._json(400, {"error": "bad_request", "message": str(exc)})
             return
+
         try:
             self._json(200, triage(payload))
         except Exception as exc:
-            # Trả lỗi để frontend tự fallback sang rule-based engine.
+            # Frontend can fallback to rule-based engine on 500.
             self._json(500, {"error": type(exc).__name__, "message": str(exc)})
 
-    def log_message(self, fmt: str, *args) -> None:  # bớt log ồn
+    def log_message(self, fmt: str, *args) -> None:
         print(f"[triage] {self.address_string()} {fmt % args}")
 
 
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
 def main() -> None:
-    has_key = bool(os.getenv("GEMINI_API_KEY"))
-    print(f"An triage server → http://localhost:{PORT}  (model={MODEL}, key={'có' if has_key else 'CHƯA cấu hình'})")
-    if not has_key:
-        print("  ⚠️  Chưa có GEMINI_API_KEY trong .env — /triage sẽ trả lỗi, frontend sẽ fallback rule-based.")
+    print(f"An triage server → http://localhost:{PORT}")
+    print(f"  provider={PROVIDER_NAME}  model={SELECTED_MODEL}")
+    print(f"  history_window={HISTORY_WINDOW}  max_tool_rounds={MAX_TOOL_ROUNDS}")
     ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
 
 
