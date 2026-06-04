@@ -1,0 +1,61 @@
+# starter_v0 — tool declarations (intentionally vague).
+# Names and descriptions here are a rough first draft. Routing rules, name->handle
+# mapping, arg conventions (news/timeframe/Top), and the send-confirmation boundary
+# are NOT spelled out anywhere yet. Your job is to make these declarations + the
+# system prompt good enough that the agent routes correctly on the eval.
+#
+# If you rename a tool, keep the name in sync across:
+#   this file  ->  tools/__init__.py (TOOL_FUNCTIONS)  ->  data/eval_base.json + data/eval_research_extension.json
+tools:
+  # ---------------- Core tools ----------------
+  - name: clarify
+    description: "Gửi một câu hỏi cho người dùng."
+    parameters:
+      type: object
+      properties:
+        question: {type: string, default: "", description: "Câu hỏi"}
+        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời"}
+        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
+      required: [question]
+
+  - name: lookup
+    description: "Tra cứu thông tin trên internet."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Truy vấn"}
+        topic: {type: string, enum: [general, news], default: "general", description: "Phân loại"}
+        timeframe: {type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian"}
+        max_results: {type: integer, default: 5, description: "Số kết quả"}
+      required: [query]
+
+  - name: fetch
+    description: "Lấy nội dung từ một địa chỉ."
+    parameters:
+      type: object
+      properties:
+        url: {type: string, default: "", description: "Địa chỉ"}
+      required: [url]
+
+  - name: format
+    description: "Trình bày dữ liệu đã có thành văn bản."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+              section: {type: string}
+        template: {type: string, enum: [brief, sections, bullets, thread, daily_ai_vn], default: "sections", description: "Khuôn"}
+        headline: {type: string, default: "", description: "Tiêu đề"}
+      required: [items, template]
+
+
