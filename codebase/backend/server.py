@@ -29,6 +29,10 @@ from tools import load_tool_declarations, to_openai_tools
 
 # Import the core agent loop and helpers from chat.py
 from chat import run_model_tool_loop, trim_history
+from datetime import datetime
+from chat import run_model_tool_loop, trim_history, write_transcript, safe_slug, now_iso
+from versioning import artifact_version_dict, build_artifact_version
+
 
 # ---------------------------------------------------------------------------
 # Bootstrap — mirrors what chat.py does in main()
@@ -49,6 +53,8 @@ OPENAI_TOOLS = to_openai_tools(TOOL_DECLARATIONS)
 PROVIDER = make_provider(PROVIDER_NAME)
 SELECTED_MODEL = MODEL or getattr(PROVIDER, "default_model", None)
 
+TRANSCRIPTS_DIR = ROOT / "transcripts"
+VERSION = os.getenv("TRIAGE_VERSION", "server")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -160,6 +166,35 @@ def _agent_result_to_response(result: dict) -> dict:
 def triage(payload: dict) -> dict:
     messages = _build_messages(payload.get("history", []), payload.get("message", ""))
 
+    # build a per-request transcript (mirrors chat.py's turn structure)
+    timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+    transcript_id = "_".join([safe_slug(VERSION), safe_slug(PROVIDER_NAME), timestamp])
+    transcript_path = TRANSCRIPTS_DIR / f"{transcript_id}.transcript.json"
+
+    transcript = {
+        "transcript_id": transcript_id,
+        "provider": PROVIDER_NAME,
+        "model": SELECTED_MODEL,
+        "system_prompt": str(ARTIFACTS_DIR / "system_prompt.md"),
+        "tools": str(ARTIFACTS_DIR / "tools.yaml"),
+        "history_window": HISTORY_WINDOW,
+        "max_tool_rounds": MAX_TOOL_ROUNDS,
+        "created_at": now_iso(),
+        "updated_at": now_iso(),
+        "turns": [],
+    }
+
+    turn_record = {
+        "turn_index": 1,
+        "started_at": now_iso(),
+        "user": payload.get("message", ""),
+        "history_length": len(payload.get("history", [])),
+        "status": "started",
+        "assistant_text": None,
+        "rounds": [],
+        "tool_events": [],
+    }
+
     result = run_model_tool_loop(
         provider=PROVIDER,
         messages=messages,
@@ -167,6 +202,11 @@ def triage(payload: dict) -> dict:
         model=SELECTED_MODEL,
         max_tool_rounds=MAX_TOOL_ROUNDS,
     )
+
+    turn_record.update(result)
+    turn_record["ended_at"] = now_iso()
+    transcript["turns"].append(turn_record)
+    write_transcript(transcript_path, transcript)
 
     return _agent_result_to_response(result)
 
