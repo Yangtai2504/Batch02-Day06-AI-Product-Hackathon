@@ -198,7 +198,10 @@ export default function App() {
 
   const editSymptoms = useCallback(
     (next) => {
+      // Optimistic: hiện ngay chip vừa sửa lên UI (cả 2 chế độ)
+      setSession((s) => ({ ...s, symptoms: next }))
       if (USE_REAL) {
+        if (busy) return // đang xử lý lượt khác — chip vẫn hiện, chờ lượt sau
         const labels = next.map((s) => s.label).join(', ')
         send(labels ? `Cập nhật lại triệu chứng của tôi: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
         return
