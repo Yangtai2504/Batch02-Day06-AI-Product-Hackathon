@@ -23,6 +23,7 @@ import json
 import os
 import re
 import time
+import traceback
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -247,8 +248,18 @@ class Handler(BaseHTTPRequestHandler):
         try:
             self._json(200, triage(payload))
         except Exception as exc:
-            # Trả lỗi để frontend tự fallback sang rule-based engine.
-            self._json(500, {"error": type(exc).__name__, "message": str(exc)})
+            # Ghi traceback đầy đủ ra console + logs/ để dò vết; trả lỗi gọn cho client
+            # (frontend tự fallback sang rule-based engine).
+            tb = traceback.format_exc()
+            print(f"[triage] ❌ LỖI {type(exc).__name__}: {exc}\n{tb}")
+            _log({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "ok": False, "model": MODEL,
+                  "message": (payload.get("message") or "")[:200],
+                  "error": type(exc).__name__, "errorMessage": str(exc), "traceback": tb})
+            self._json(500, {
+                "error": type(exc).__name__,
+                "message": str(exc),
+                "traceback": tb.splitlines()[-14:],  # vài dòng cuối để debug nhanh
+            })
 
     def log_message(self, fmt: str, *args) -> None:  # bớt log ồn
         print(f"[triage] {self.address_string()} {fmt % args}")
