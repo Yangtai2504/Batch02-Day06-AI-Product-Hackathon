@@ -1,15 +1,8 @@
 import { motion } from 'framer-motion'
 import { Cross } from './icons.jsx'
+import { formatWhen } from '../lib/sessionLog.js'
 
-/* Lịch sử phiên — danh sách phiên trước (mock, mang tính minh hoạ sản phẩm). */
-const PAST = [
-  { id: 'p1', title: 'Sốt & Đau họng', when: 'Hôm qua' },
-  { id: 'p2', title: 'Đau bụng', when: '2 ngày trước' },
-  { id: 'p3', title: 'Kiểm tra định kỳ', when: '1 tuần trước' },
-  { id: 'p4', title: 'Mệt mỏi, chóng mặt', when: '1 tuần trước' },
-  { id: 'p5', title: 'Đau đầu', when: '2 tuần trước' },
-  { id: 'p6', title: 'Phát ban da', when: '3 tuần trước' },
-]
+const LEVEL_DOT = { green: '#45975c', amber: '#c07f30', red: '#c0473b' }
 
 function DocIcon(p) {
   return (
@@ -20,7 +13,10 @@ function DocIcon(p) {
   )
 }
 
-export default function SessionHistory({ activeTitle, onNew }) {
+export default function SessionHistory({ sessions = [], activeId, isReviewing, activeTitle, onNew, onOpen }) {
+  // Phiên đang diễn ra (chưa nằm trong log hoặc chính là active) hiển thị ở đầu nếu có
+  const liveShown = activeTitle && !isReviewing && !sessions.some((s) => s.id === activeId)
+
   return (
     <aside className="history">
       <p className="history__label">Lịch sử phiên</p>
@@ -30,12 +26,8 @@ export default function SessionHistory({ activeTitle, onNew }) {
       </button>
 
       <div className="history__list">
-        {activeTitle && (
-          <motion.div
-            className="history__item is-active"
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+        {liveShown && (
+          <motion.div className="history__item is-active" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}>
             <span className="history__dot" />
             <span className="history__tx">
               <span className="history__title">{activeTitle}</span>
@@ -45,18 +37,36 @@ export default function SessionHistory({ activeTitle, onNew }) {
           </motion.div>
         )}
 
-        {PAST.map((p) => (
-          <button key={p.id} className="history__item" type="button">
-            <span className="history__tx">
-              <span className="history__title">Phiên: {p.title}</span>
-              <span className="history__when">{p.when}</span>
-            </span>
-            <DocIcon className="history__ic" width={16} height={16} />
-          </button>
-        ))}
+        {sessions.length === 0 && !liveShown && (
+          <p className="history__empty">Chưa có phiên nào. Mỗi cuộc trò chuyện sẽ được lưu lại đây để bạn xem lại.</p>
+        )}
+
+        {sessions.map((s) => {
+          const active = s.id === activeId
+          return (
+            <button
+              key={s.id}
+              className={`history__item ${active ? 'is-active' : ''}`}
+              type="button"
+              onClick={() => onOpen?.(s)}
+              title="Bấm để xem lại phiên này"
+            >
+              {s.level ? (
+                <span className="history__dot" style={{ background: LEVEL_DOT[s.level] || 'var(--sage)' }} />
+              ) : (
+                <span className="history__dot" style={{ background: '#b6c7ba', boxShadow: 'none' }} />
+              )}
+              <span className="history__tx">
+                <span className="history__title">{s.title}</span>
+                <span className="history__when">{active && isReviewing ? 'Đang xem · ' : ''}{formatWhen(s.updatedAt || s.startedAt)}</span>
+              </span>
+              <DocIcon className="history__ic" width={16} height={16} />
+            </button>
+          )
+        })}
       </div>
 
-      <p className="history__foot">Phiên cũ chỉ mang tính minh hoạ trong prototype.</p>
+      <p className="history__foot">Phiên được lưu cục bộ trên máy bạn (nhật ký localStorage).</p>
     </aside>
   )
 }

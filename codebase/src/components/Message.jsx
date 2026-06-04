@@ -4,8 +4,9 @@ import { Pulse } from './icons.jsx'
 const time = () =>
   new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
 
-export default function Message({ role, text, confirm, stamp }) {
+export default function Message({ role, text, confirm, stamp, meta }) {
   const ai = role === 'ai'
+  const ms = meta?.ms
   return (
     <motion.div
       className={`msg ${ai ? 'ai' : 'user'}`}
@@ -19,7 +20,15 @@ export default function Message({ role, text, confirm, stamp }) {
           {confirm && <span style={{ color: 'var(--sage)', fontWeight: 600 }}>✓ Đã ghi nhận — </span>}
           {text}
         </div>
-        <span className="msg__time">{stamp || time()}</span>
+        <span className="msg__time">
+          {stamp || time()}
+          {ai && meta?.source && (
+            <span className={`run-tag ${meta.source}`}>
+              {meta.source === 'gemini' ? 'Gemini' : 'demo'}
+              {typeof ms === 'number' && <> · ⏱ {(ms / 1000).toFixed(ms < 1000 ? 2 : 1)}s</>}
+            </span>
+          )}
+        </span>
       </div>
     </motion.div>
   )
