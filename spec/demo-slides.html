@@ -87,6 +87,20 @@ ul.points li b{color:var(--ink);font-weight:600}
 .team .m .r{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
 .team .m .n{font-size:16px;font-weight:600;color:var(--ink)}
 
+/* image frames */
+.split{display:flex;gap:clamp(24px,3.5vw,52px);align-items:center;width:100%;max-width:1220px;margin:auto}
+.split .col{flex:1;min-width:0}
+.shots{display:flex;gap:18px;justify-content:center;align-items:flex-end}
+.figure{display:flex;flex-direction:column;align-items:center;gap:10px}
+.phone{padding:7px;background:#fff;border:1px solid var(--edge);border-radius:20px;box-shadow:0 16px 44px rgba(28,50,40,.2)}
+.phone img{height:46vh;max-height:520px;width:auto;display:block;border-radius:13px}
+.shotcap{font-size:12.5px;color:var(--soft);line-height:1.4;text-align:center;max-width:24ch}
+.shotcap b{color:var(--ink2)}
+.browser{border-radius:16px;overflow:hidden;border:1px solid var(--edge);box-shadow:0 18px 52px rgba(28,50,40,.22);background:#fff}
+.browser .bar{height:30px;background:#e3ede2;display:flex;align-items:center;gap:7px;padding:0 13px;border-bottom:1px solid var(--edge)}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:#c3d3c5;display:block}
+.browser img{width:100%;display:block}
+
 /* footer / nav */
 .foot{position:fixed;bottom:24px;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(40px,6vw,88px);pointer-events:none}
 .foot .brand{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink)}
@@ -129,30 +143,37 @@ ul.points li b{color:var(--ink);font-weight:600}
     </div>
   </section>
 
-  <!-- 2 · PROBLEM -->
+  <!-- 2 · PAIN POINT -->
   <section class="slide">
-    <div class="maxw stagger">
-      <div class="eyebrow">01 · Vấn đề</div>
-      <h2>Symptom checker hiện tại làm người dùng <em>mệt và mất tin tưởng</em></h2>
-      <ul class="points">
-        <li><span class="bullet"></span><span><b>Questionnaire fatigue:</b> bắt trả lời chuỗi câu hỏi cứng / chọn trên body-map → mất kiên nhẫn, bỏ giữa chừng.</span></li>
-        <li><span class="bullet"></span><span><b>Không giải thích:</b> trả ra một loạt bệnh (Flu, COVID…) mà không nói vì sao → bối rối, không biết tin cái nào.</span></li>
-        <li><span class="bullet"></span><span><b>Red flag xử lý mơ hồ:</b> Babylon bỏ sót dấu hiệu đau tim → bị báo cáo; ChatGPT/Gemini undertriage ~52% ca cấp cứu.</span></li>
-      </ul>
-      <div class="disc">📎 Bằng chứng: self-use Ada Health + phân tích 5 app (WebMD · MyVinmec · Babylon · ChatGPT/Gemini).</div>
+    <div class="split stagger">
+      <div class="col">
+        <div class="eyebrow">01 · Pain point</div>
+        <h2 style="font-size:clamp(26px,3.3vw,46px)">Người dùng <em>mệt &amp; mất tin tưởng</em> trước khi có kết quả</h2>
+        <div class="card" style="border-left:4px solid var(--amber);margin:2px 0 16px">
+          <div class="k">Nỗi đau cốt lõi</div>
+          <p style="color:var(--ink2);font-size:clamp(14px,1.45vw,18px);line-height:1.55">Symptom checker bắt trả lời <b>chuỗi câu hỏi cứng / chọn đáp án có sẵn</b> → tương tác dài, mất kiên nhẫn. Kết quả trả về <b>nhiều bệnh cùng lúc, không giải thích</b> → bối rối, lo âu, mất tin tưởng.</p>
+        </div>
+        <div class="disc">📎 Bằng chứng: self-use Ada Health + phân tích 5 app (WebMD · MyVinmec · Babylon · ChatGPT/Gemini).</div>
+      </div>
+      <div class="col">
+        <div class="shots">
+          <div class="figure"><div class="phone"><img src="../Screenshot/z7896448348863_d28c4c4805b978972aa5969b2438a838.jpg" alt="Ada questionnaire"></div><div class="shotcap"><b>Hỏi cứng:</b> chọn đáp án cho từng câu, qua nhiều bước</div></div>
+          <div class="figure"><div class="phone"><img src="../Screenshot/z7896448337313_ecb3ddb2dba72a62710363546399c88c.jpg" alt="Ada Flu COVID result"></div><div class="shotcap"><b>Kết quả:</b> Flu + COVID-19, không giải thích → lo âu</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 3 · SOLUTION -->
+  <!-- 3 · MAIN FLOW -->
   <section class="slide">
     <div class="maxw stagger">
-      <div class="eyebrow">02 · Giải pháp — Build slice</div>
+      <div class="eyebrow">02 · Flow chính — đường thuận</div>
       <h2>Một hội thoại tự nhiên → <em>một quyết định triage</em></h2>
       <div class="flow">
-        <span class="step">Mô tả tự nhiên</span><span class="arr">→</span>
-        <span class="step">An xác nhận lại</span><span class="arr">→</span>
-        <span class="step">Hỏi tối đa 3 câu</span><span class="arr">→</span>
-        <span class="step">Kết quả triage + lý do</span>
+        <span class="step">① Mô tả bằng lời</span><span class="arr">→</span>
+        <span class="step">② An xác nhận lại</span><span class="arr">→</span>
+        <span class="step">③ Hỏi tối đa 3 câu thích ứng</span><span class="arr">→</span>
+        <span class="step">④ Kết quả triage + lý do</span>
       </div>
       <div class="grid cols-3" style="margin-top:20px">
         <div class="card"><div class="k">Mức 1</div><span class="lvl g"><span class="dot g"></span>Tự chăm sóc tại nhà</span><p style="margin-top:10px">Theo dõi, chưa cần đi khám.</p></div>
@@ -163,18 +184,23 @@ ul.points li b{color:var(--ink);font-weight:600}
     </div>
   </section>
 
-  <!-- 4 · DEMO PATHS -->
+  <!-- 4 · SECONDARY FLOWS -->
   <section class="slide">
-    <div class="maxw stagger">
-      <div class="eyebrow">03 · Demo — 4 đường đi</div>
-      <h2>Không chỉ đường thuận — demo cả khi <em>chưa chắc, sai và sửa</em></h2>
-      <div class="grid cols-2">
-        <div class="card"><h3>🟡 Happy</h3><p>“Sốt 38.5 + đau họng 2 ngày” → xác nhận → 1 câu hỏi → <b>Gặp bác sĩ 24h</b> + lý do.</p></div>
-        <div class="card"><h3>🟢 Chưa chắc</h3><p>“Mệt, chóng mặt” mơ hồ → giữ <b>Độ chắc chắn: Thấp</b> + liệt kê thông tin còn thiếu.</p></div>
-        <div class="card"><h3>🔴 Red flag</h3><p>“Đau ngực, khó thở” → <b>bypass</b> toàn flow &lt;1s → màn hình đỏ <b>Gọi 115</b>.</p></div>
-        <div class="card"><h3>↩️ Correction</h3><p>Người dùng sửa/thêm triệu chứng AI hiểu sai → An <b>đánh giá lại</b> & giải thích.</p></div>
+    <div class="split stagger">
+      <div class="col">
+        <div class="eyebrow">03 · Flow phụ — khi không thuận</div>
+        <h2 style="font-size:clamp(24px,3vw,42px)">Thiết kế cho cả khi <em>chưa chắc, nguy hiểm &amp; sai</em></h2>
+        <ul class="points" style="margin-top:8px;gap:14px">
+          <li><span class="bullet" style="background:var(--green);box-shadow:0 0 0 4px var(--green-tint)"></span><span><b>Chưa chắc:</b> mô tả mơ hồ (“mệt, chóng mặt”) → giữ <b>Độ chắc chắn: Thấp</b> + liệt kê thông tin còn thiếu, hỏi thêm thay vì đoán.</span></li>
+          <li><span class="bullet" style="background:var(--red);box-shadow:0 0 0 4px var(--red-tint)"></span><span><b>Red flag:</b> “đau ngực, khó thở” → <b>bypass</b> &lt;1s → màn hình đỏ <b>Gọi 115</b>.</span></li>
+          <li><span class="bullet" style="background:var(--sage);box-shadow:0 0 0 4px var(--tint)"></span><span><b>Correction:</b> người dùng sửa / thêm triệu chứng AI hiểu sai → An <b>đánh giá lại</b> &amp; giải thích.</span></li>
+        </ul>
+        <div class="disc">⚡ AI chạy thật: mỗi câu trả lời hiện nhãn <b style="color:var(--ink2)">Gemini · ⏱ thời gian chạy</b>.</div>
       </div>
-      <div class="disc">⚡ AI chạy thật: mỗi câu trả lời hiện nhãn <b style="color:var(--ink2)">Gemini · ⏱ thời gian chạy</b>.</div>
+      <div class="col">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="img/app-result.png" alt="Kết quả triage trong app An"></div>
+        <div class="shotcap" style="margin:12px auto 0"><b>Kết quả triage</b> · mức khẩn cấp + lý do + độ chắc chắn + bước tiếp theo</div>
+      </div>
     </div>
   </section>
 
@@ -194,20 +220,26 @@ ul.points li b{color:var(--ink);font-weight:600}
 
   <!-- 6 · ARCHITECTURE + TEAM -->
   <section class="slide">
-    <div class="maxw stagger">
-      <div class="eyebrow">05 · Kiến trúc & Đội ngũ</div>
-      <h2>Prototype chạy được — <em>mời thử ngay</em></h2>
-      <div class="grid cols-2" style="margin-bottom:20px">
-        <div class="card"><div class="k">Frontend</div><p>React + Vite + Framer Motion · UI “mint apothecary” · lịch sử phiên (localStorage) + thời gian chạy.</p></div>
-        <div class="card"><div class="k">Backend</div><p>Python + <b>Google Gemini</b> · agent loop + system prompt triage · transcripts &amp; log.</p></div>
+    <div class="split stagger" style="align-items:center">
+      <div class="col" style="flex:0 0 48%">
+        <div class="eyebrow">05 · Kiến trúc & Đội ngũ</div>
+        <h2 style="font-size:clamp(24px,3vw,40px);margin-bottom:18px">Prototype chạy được — <em>mời thử ngay</em></h2>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="img/app-welcome.png" alt="Giao diện An"></div>
+        <div class="shotcap" style="margin:12px auto 0">Giao diện <b>An</b> · localhost:5173 · AI thật bằng Gemini</div>
       </div>
-      <div class="team">
-        <div class="m"><div class="r">Frontend / UI</div><div class="n">Huyền</div></div>
-        <div class="m"><div class="r">Backend / Gemini</div><div class="n">Dũng</div></div>
-        <div class="m"><div class="r">SPEC</div><div class="n">Dương</div></div>
-        <div class="m"><div class="r">Research / Evidence</div><div class="n">Kiên</div></div>
-        <div class="m"><div class="r">Test / Failure path</div><div class="n">Lương</div></div>
-        <div class="m"><div class="r">Demo / Repo</div><div class="n">Huỳnh</div></div>
+      <div class="col">
+        <div class="grid cols-2" style="margin-bottom:16px">
+          <div class="card"><div class="k">Frontend</div><p>React + Vite + Framer Motion · UI “mint apothecary” · lịch sử phiên (localStorage) + thời gian chạy.</p></div>
+          <div class="card"><div class="k">Backend</div><p>Python + <b>Google Gemini</b> · agent loop + system prompt triage · transcripts &amp; log.</p></div>
+        </div>
+        <div class="team" style="grid-template-columns:1fr 1fr">
+          <div class="m"><div class="r">Frontend / UI</div><div class="n">Huyền</div></div>
+          <div class="m"><div class="r">Backend / Gemini</div><div class="n">Dũng</div></div>
+          <div class="m"><div class="r">SPEC</div><div class="n">Dương</div></div>
+          <div class="m"><div class="r">Research / Evidence</div><div class="n">Kiên</div></div>
+          <div class="m"><div class="r">Test / Failure path</div><div class="n">Lương</div></div>
+          <div class="m"><div class="r">Demo / Repo</div><div class="n">Huỳnh</div></div>
+        </div>
       </div>
     </div>
   </section>
