@@ -1,0 +1,144 @@
+{
+  "transcript_id": "server_gemini_20260604T143858298016",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T14:38:58",
+  "updated_at": "2026-06-04T14:39:05",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T14:38:58",
+      "user": "Không sốt cao, không khó thở",
+      "history_length": 3,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên các triệu chứng bạn mô tả (đau họng, ho, cảm giác nóng người nhưng không sốt cao và không khó thở), tình trạng của bạn có vẻ nhẹ và không có dấu hiệu nguy hiểm cấp tính.\",\n        \"conditions\": [\n          {\n            \"name\": \"Viêm họng cấp tính (thường do virus hoặc kích ứng môi trường)\",\n            \"pct\": \"70%\"\n          },\n          {\n            \"name\": \"Cảm lạnh thông thường\",\n            \"pct\": \"30%\"\n          }\n        ],\n        \"actions\": [\n          \"Súc họng bằng nước muối sinh lý 2-3 lần/ngày.\",\n          \"Uống nhiều nước ấm, có thể thêm mật ong hoặc chanh để làm dịu cổ họng.\",\n          \"Giữ ấm cơ thể, tránh nằm điều hòa quá lạnh hoặc không khí quá khô.\",\n          \"Nghỉ ngơi đầy đủ để cơ thể hồi phục.\",\n          \"Theo dõi nhiệt độ cơ thể, nếu sốt cao trên 38.5 độ C hoặc xuất hiện khó thở, đau ngực, cần đi khám ngay.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Ho\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Người nóng\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"vài ngày\",\n      \"temp\": null,\n      \"severity\": \"nhẹ\",\n      \"associated\": false,\n      \"context\": null\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "nguyên nhân đau họng ho người nóng không sốt cao không khó thở"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "nguyên nhân đau họng ho người nóng không sốt cao không khó thở"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "nguyên nhân đau họng ho người nóng không sốt cao không khó thở",
+                "topic": "general",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "Vì sao ngủ dậy bị đau họng? 7 nguyên nhân nhiều người không ...",
+                    "url": "https://ptm.hongngochospital.vn/vi/vi-sao-ngu-day-bi-dau-hong",
+                    "source": "ptm.hongngochospital.vn",
+                    "summary": "1. Phòng điều hòa quá lạnh hoặc quá khô · 2. Thở bằng miệng khi ngủ · 3. Ngáy ngủ hoặc nghi ngưng thở khi ngủ · 4. Viêm mũi dị ứng, nghẹt mũi hoặc chảy dịch mũi",
+                    "score": 0.96485513
+                  },
+                  {
+                    "title": "Nắng nóng kéo dài, chuyên gia cảnh báo bệnh tật từ những thói quen giải nhiệt",
+                    "url": "https://baodautu.vn/nang-nong-keo-dai-chuyen-gia-canh-bao-benh-tat-tu-nhung-thoi-quen-giai-nhiet-d607748.html",
+                    "source": "baodautu.vn",
+                    "summary": "Theo chia sẻ của bệnh nhân, đây là mùa hè đầu tiên chị làm việc văn phòng, thường xuyên ngồi trong phòng điều hòa nhiệt độ thấp suốt nhiều giờ liền và có thói quen uống nước đá để giải nhiệt. Theo BSCKI Hà Tố Như, Bệnh viện Đa khoa An Việt, việc lạm dụng điều hòa hoặc sử dụng đồ uống lạnh không đúng cách trong những ngày nắng nóng là nguyên nhân khiến nhiều người mắc các bệnh lý tai mũi họng. Trong đó, viêm họng, viêm amidan, viêm xoang và viêm phù nề thanh thiệt cấp tính là những bệnh thường gặp nhất. Viêm họng là tình trạng niêm mạc họng bị viêm, gây khô rát, đau họng, ho, sốt và ảnh hưởng đáng kể đến sinh hoạt hằng ngày. Bên cạnh viêm họng, viêm amidan cũng là bệnh lý thường gia tăng trong mùa hè.",
+                    "score": 0.96095175
+                  },
+                  {
+                    "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng - Báo Sức Khỏe & Đời Sống",
+                    "url": "https://baomoi.com/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-c55277880.epi",
+                    "source": "baomoi.com",
+                    "summary": "Tuy nhiên, không ít người sau khi ngủ dậy thường gặp tình trạng đau họng, khô họng, nghẹt mũi hoặc ho kéo dài và cho rằng nguyên nhn là do nằm máy lạnh. Một trong những nguyên nhn phổ biến nhất gy đau họng khi nằm máy lạnh là do không khí trong phòng bị khô. Tuy nhiên, nếu sử dụng không đúng cách hoặc không vệ sinh máy thường xuyên, máy lạnh có thể khiến niêm mạc đường hô hấp bị kích ứng, tạo điều kiện cho vi khuẩn, virus và nấm mốc phát triển, từ đó làm tăng nguy cơ viêm họng. Bên cạnh đó, cần tăng độ ẩm cho không khí trong phòng bằng một số cách đơn giản như: Sử dụng máy tạo độ ẩm; kết hợp máy lọc không khí; trồng thêm cy xanh phù hợp trong phòng...Những biện pháp này giúp hạn chế tình trạng khô họng và khó chịu khi nằm máy lạnh lu.",
+                    "score": 0.6619229
+                  },
+                  {
+                    "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng",
+                    "url": "https://suckhoedoisong.vn/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-169260528223241667.htm",
+                    "source": "suckhoedoisong.vn",
+                    "summary": "# 4 bí quyết giúp bạn nằm máy lạnh không bị đau họng. Tuy nhiên, không ít người sau khi ngủ dậy thường gặp tình trạng đau họng, khô họng, nghẹt mũi hoặc ho kéo dài và cho rằng nguyên nhn là do nằm máy lạnh. Một trong những nguyên nhn phổ biến nhất gy đau họng khi nằm máy lạnh là do không khí trong phòng bị khô. Điều này không chỉ gy kích ứng họng mà còn làm tăng nguy cơ mắc các bệnh lý hô hấp như viêm mũi dị ứng, viêm họng, viêm phế quản. Tuy nhiên, nếu sử dụng không đúng cách hoặc không vệ sinh máy thường xuyên, máy lạnh có thể khiến niêm mạc đường hô hấp bị kích ứng, tạo điều kiện cho vi khuẩn, virus và nấm mốc phát triển, từ đó làm tăng nguy cơ viêm họng.",
+                    "score": 0.6406359
+                  },
+                  {
+                    "title": "Nghẹt mũi, khó thở kéo dài: Cảnh giác bệnh hô hấp - Sở Y tế",
+                    "url": "https://syt.tayninh.gov.vn/hoat-dong-chuyen-mon-truyen-thong-giao-duc-suc-khoe/nghet-mui-kho-tho-keo-dai-canh-giac-benh-ho-hap-1069018",
+                    "source": "syt.tayninh.gov.vn",
+                    "summary": "Virus cảm lạnh hoặc cúm xâm nhập vào cơ thể qua đường hô hấp, tấn công niêm mạc mũi và gây viêm. Khi đó, niêm mạc mũi sưng nề, tăng tiết dịch nhầy khiến người",
+                    "score": 0.63522243
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên các triệu chứng bạn mô tả (đau họng, ho, cảm giác nóng người nhưng không sốt cao và không khó thở), tình trạng của bạn có vẻ nhẹ và không có dấu hiệu nguy hiểm cấp tính.\",\n        \"conditions\": [\n          {\n            \"name\": \"Viêm họng cấp tính (thường do virus hoặc kích ứng môi trường)\",\n            \"pct\": \"70%\"\n          },\n          {\n            \"name\": \"Cảm lạnh thông thường\",\n            \"pct\": \"30%\"\n          }\n        ],\n        \"actions\": [\n          \"Súc họng bằng nước muối sinh lý 2-3 lần/ngày.\",\n          \"Uống nhiều nước ấm, có thể thêm mật ong hoặc chanh để làm dịu cổ họng.\",\n          \"Giữ ấm cơ thể, tránh nằm điều hòa quá lạnh hoặc không khí quá khô.\",\n          \"Nghỉ ngơi đầy đủ để cơ thể hồi phục.\",\n          \"Theo dõi nhiệt độ cơ thể, nếu sốt cao trên 38.5 độ C hoặc xuất hiện khó thở, đau ngực, cần đi khám ngay.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Ho\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Người nóng\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"vài ngày\",\n      \"temp\": null,\n      \"severity\": \"nhẹ\",\n      \"associated\": false,\n      \"context\": null\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "nguyên nhân đau họng ho người nóng không sốt cao không khó thở"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "nguyên nhân đau họng ho người nóng không sốt cao không khó thở",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Vì sao ngủ dậy bị đau họng? 7 nguyên nhân nhiều người không ...",
+                "url": "https://ptm.hongngochospital.vn/vi/vi-sao-ngu-day-bi-dau-hong",
+                "source": "ptm.hongngochospital.vn",
+                "summary": "1. Phòng điều hòa quá lạnh hoặc quá khô · 2. Thở bằng miệng khi ngủ · 3. Ngáy ngủ hoặc nghi ngưng thở khi ngủ · 4. Viêm mũi dị ứng, nghẹt mũi hoặc chảy dịch mũi",
+                "score": 0.96485513
+              },
+              {
+                "title": "Nắng nóng kéo dài, chuyên gia cảnh báo bệnh tật từ những thói quen giải nhiệt",
+                "url": "https://baodautu.vn/nang-nong-keo-dai-chuyen-gia-canh-bao-benh-tat-tu-nhung-thoi-quen-giai-nhiet-d607748.html",
+                "source": "baodautu.vn",
+                "summary": "Theo chia sẻ của bệnh nhân, đây là mùa hè đầu tiên chị làm việc văn phòng, thường xuyên ngồi trong phòng điều hòa nhiệt độ thấp suốt nhiều giờ liền và có thói quen uống nước đá để giải nhiệt. Theo BSCKI Hà Tố Như, Bệnh viện Đa khoa An Việt, việc lạm dụng điều hòa hoặc sử dụng đồ uống lạnh không đúng cách trong những ngày nắng nóng là nguyên nhân khiến nhiều người mắc các bệnh lý tai mũi họng. Trong đó, viêm họng, viêm amidan, viêm xoang và viêm phù nề thanh thiệt cấp tính là những bệnh thường gặp nhất. Viêm họng là tình trạng niêm mạc họng bị viêm, gây khô rát, đau họng, ho, sốt và ảnh hưởng đáng kể đến sinh hoạt hằng ngày. Bên cạnh viêm họng, viêm amidan cũng là bệnh lý thường gia tăng trong mùa hè.",
+                "score": 0.96095175
+              },
+              {
+                "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng - Báo Sức Khỏe & Đời Sống",
+                "url": "https://baomoi.com/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-c55277880.epi",
+                "source": "baomoi.com",
+                "summary": "Tuy nhiên, không ít người sau khi ngủ dậy thường gặp tình trạng đau họng, khô họng, nghẹt mũi hoặc ho kéo dài và cho rằng nguyên nhn là do nằm máy lạnh. Một trong những nguyên nhn phổ biến nhất gy đau họng khi nằm máy lạnh là do không khí trong phòng bị khô. Tuy nhiên, nếu sử dụng không đúng cách hoặc không vệ sinh máy thường xuyên, máy lạnh có thể khiến niêm mạc đường hô hấp bị kích ứng, tạo điều kiện cho vi khuẩn, virus và nấm mốc phát triển, từ đó làm tăng nguy cơ viêm họng. Bên cạnh đó, cần tăng độ ẩm cho không khí trong phòng bằng một số cách đơn giản như: Sử dụng máy tạo độ ẩm; kết hợp máy lọc không khí; trồng thêm cy xanh phù hợp trong phòng...Những biện pháp này giúp hạn chế tình trạng khô họng và khó chịu khi nằm máy lạnh lu.",
+                "score": 0.6619229
+              },
+              {
+                "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng",
+                "url": "https://suckhoedoisong.vn/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-169260528223241667.htm",
+                "source": "suckhoedoisong.vn",
+                "summary": "# 4 bí quyết giúp bạn nằm máy lạnh không bị đau họng. Tuy nhiên, không ít người sau khi ngủ dậy thường gặp tình trạng đau họng, khô họng, nghẹt mũi hoặc ho kéo dài và cho rằng nguyên nhn là do nằm máy lạnh. Một trong những nguyên nhn phổ biến nhất gy đau họng khi nằm máy lạnh là do không khí trong phòng bị khô. Điều này không chỉ gy kích ứng họng mà còn làm tăng nguy cơ mắc các bệnh lý hô hấp như viêm mũi dị ứng, viêm họng, viêm phế quản. Tuy nhiên, nếu sử dụng không đúng cách hoặc không vệ sinh máy thường xuyên, máy lạnh có thể khiến niêm mạc đường hô hấp bị kích ứng, tạo điều kiện cho vi khuẩn, virus và nấm mốc phát triển, từ đó làm tăng nguy cơ viêm họng.",
+                "score": 0.6406359
+              },
+              {
+                "title": "Nghẹt mũi, khó thở kéo dài: Cảnh giác bệnh hô hấp - Sở Y tế",
+                "url": "https://syt.tayninh.gov.vn/hoat-dong-chuyen-mon-truyen-thong-giao-duc-suc-khoe/nghet-mui-kho-tho-keo-dai-canh-giac-benh-ho-hap-1069018",
+                "source": "syt.tayninh.gov.vn",
+                "summary": "Virus cảm lạnh hoặc cúm xâm nhập vào cơ thể qua đường hô hấp, tấn công niêm mạc mũi và gây viêm. Khi đó, niêm mạc mũi sưng nề, tăng tiết dịch nhầy khiến người",
+                "score": 0.63522243
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T14:39:05"
+    }
+  ]
+}
