@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T160502292307",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:05:02",
+  "updated_at": "2026-06-04T16:05:04",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:05:02",
+      "user": "tôi thở không ra hơi",
+      "history_length": 0,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi rất tiếc khi biết bạn đang cảm thấy khó thở. Để tôi có thể hỗ trợ bạn tốt nhất, bạn vui lòng cho biết thêm một vài thông tin nhé.\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Tình trạng khó thở của bạn xuất hiện đột ngột hay từ từ, và bạn có cảm thấy đau tức ngực kèm theo không?\",\n      \"quick\": [\n        \"Đột ngột, có đau ngực\",\n        \"Từ từ, không đau ngực\",\n        \"Đột ngột, không đau ngực\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 20,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"Thời gian khởi phát\",\n      \"Triệu chứng đi kèm (đau ngực)\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi rất tiếc khi biết bạn đang cảm thấy khó thở. Để tôi có thể hỗ trợ bạn tốt nhất, bạn vui lòng cho biết thêm một vài thông tin nhé.\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Tình trạng khó thở của bạn xuất hiện đột ngột hay từ từ, và bạn có cảm thấy đau tức ngực kèm theo không?\",\n      \"quick\": [\n        \"Đột ngột, có đau ngực\",\n        \"Từ từ, không đau ngực\",\n        \"Đột ngột, không đau ngực\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 20,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"Thời gian khởi phát\",\n      \"Triệu chứng đi kèm (đau ngực)\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:05:04"
+    }
+  ]
+}
