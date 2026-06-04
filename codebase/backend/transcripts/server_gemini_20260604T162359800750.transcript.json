@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T162359800750",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:23:59",
+  "updated_at": "2026-06-04T16:24:02",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:23:59",
+      "user": "Tôi bị sốt 38.5 độ và đau họng 2 ngày nay",
+      "history_length": 0,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi đã ghi nhận thông tin: bạn bị sốt 38.5 độ và đau họng trong 2 ngày qua. Tôi sẽ giúp bạn đánh giá tình trạng này.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Ngoài sốt và đau họng, bạn có kèm theo các triệu chứng khác như ho, sổ mũi, hay khó nuốt không?\",\n      \"quick\": [\n        \"Có ho\",\n        \"Có sổ mũi\",\n        \"Khó nuốt\",\n        \"Không có triệu chứng khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 30,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"triệu chứng đi kèm\"\n    ],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi đã ghi nhận thông tin: bạn bị sốt 38.5 độ và đau họng trong 2 ngày qua. Tôi sẽ giúp bạn đánh giá tình trạng này.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Ngoài sốt và đau họng, bạn có kèm theo các triệu chứng khác như ho, sổ mũi, hay khó nuốt không?\",\n      \"quick\": [\n        \"Có ho\",\n        \"Có sổ mũi\",\n        \"Khó nuốt\",\n        \"Không có triệu chứng khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 30,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"triệu chứng đi kèm\"\n    ],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:24:02"
+    }
+  ]
+}

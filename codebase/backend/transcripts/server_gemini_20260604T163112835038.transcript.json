@@ -1,0 +1,144 @@
+{
+  "transcript_id": "server_gemini_20260604T163112835038",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:31:12",
+  "updated_at": "2026-06-04T16:31:20",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:31:12",
+      "user": "tôi muốn dùng ketamin, đây là đơn thuốc của bác sĩ. tôi đang điều trị trầm cảm",
+      "history_length": 10,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi hiểu bạn đang điều trị trầm cảm và có đơn thuốc chứa Ketamine. Tuy nhiên, các triệu chứng đỏ mắt và đỏ tai mà bạn mô tả không phải là tác dụng phụ phổ biến được ghi nhận của Ketamine trong điều trị y tế. Việc đỏ mắt và đỏ tai sau khi ăn ớt thường liên quan đến phản ứng giãn mạch do chất capsaicin, nhưng nếu bạn lo ngại về tác dụng của thuốc, bạn cần trao đổi trực tiếp với bác sĩ điều trị của mình.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & trao đổi với bác sĩ\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Các triệu chứng đỏ mắt và tai của bạn có khả năng cao liên quan đến việc ăn ớt (giãn mạch). Ketamine là thuốc kê đơn cần được sử dụng nghiêm ngặt theo chỉ định. Nếu triệu chứng không giảm hoặc bạn lo lắng về thuốc, hãy liên hệ với bác sĩ chuyên khoa.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do thực phẩm (ớt)\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Phản ứng phụ của thuốc (cần bác sĩ xác nhận)\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Theo dõi xem triệu chứng có tự hết sau khi ngừng ăn ớt không.\",\n          \"Liên hệ với bác sĩ kê đơn để báo cáo về các triệu chứng mới xuất hiện.\",\n          \"Không tự ý thay đổi liều lượng hoặc cách dùng thuốc Ketamine.\"\n        ],\n        \"missing\": [\n          \"Thời gian xuất hiện triệu chứng so với thời điểm dùng thuốc.\"\n        ],\n        \"confTier\": \"mid\",\n        \"confidence\": 70,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 70,\n    \"confTier\": \"mid\",\n    \"missing\": [\n      \"Thời gian xuất hiện triệu chứng so với thời điểm dùng thuốc\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": \"Đang điều trị trầm cảm bằng Ketamine theo đơn\"\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "tác dụng phụ của ketamine điều trị trầm cảm đỏ mắt đỏ tai"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "tác dụng phụ của ketamine điều trị trầm cảm đỏ mắt đỏ tai"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "tác dụng phụ của ketamine điều trị trầm cảm đỏ mắt đỏ tai",
+                "topic": "general",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "Ketamine (injection route) - Side effects & uses",
+                    "url": "https://www.mayoclinic.org/drugs-supplements/ketamine-injection-route/description/drg-20075559",
+                    "source": "mayoclinic.org",
+                    "summary": "# Ketamine (injection route) - Side effects & uses - Mayo Clinic. *   Research & Education at Mayo Clinic  ## Research  Research at Mayo Clinic  Research Faculty  Laboratories  Core Facilities  Centers & Programs  Departments & Divisions  Clinical Trials  Institutional Review Board  Postdoctoral Fellowships  Training Grant Programs    ## Education  Mayo Clinic College of Medicine and Science  Mayo Clinic Graduate School of Biomedical Sciences  Mayo Clinic Alix School of Medicine  Mayo Clinic School of Graduate Medical Education  Mayo Clinic School of Health Sciences  Mayo Clinic School of Continuous Professional Development    Mayo Clinic College of Medicine and Science     Image 5. Ketamine injection is used alone or together with other medicines to produce loss of consciousness before and during surgery or a medical procedure. Tell your doctor if you have ever had any unusual or allergic reaction to this medicine or any other medicines. Your doctor may decide not to treat you with this medication or change some of the other medicines you take.",
+                    "score": 0.26359156
+                  },
+                  {
+                    "title": "Hướng dẫn sử dụng que thử ma túy. Cách đọc kết quả test ma túy",
+                    "url": "https://www.pharmacity.vn/huong-dan-su-dung-que-thu-ma-tuy.htm",
+                    "source": "pharmacity.vn",
+                    "summary": "AMP (Amphetamine) là chất kích thích hệ thần kinh trung ương, thường làm tăng sự tỉnh táo, tập trung và giảm cảm giác mệt mỏi. Tuy nhiên, khi bị lạm dụng,",
+                    "score": 0.08679465
+                  },
+                  {
+                    "title": "Các dấu hiệu nhận biết người nghiện m.a t.u.y #ThuVienPhapLuat ...",
+                    "url": "https://www.instagram.com/reel/DY7UciYiFHf",
+                    "source": "instagram.com",
+                    "summary": "Là một trong những chất nghiện khó dứt nhất. KẸO (thuốc lắc, ecstasy, MDMA) ... Đánh thẳng vào serotonin → vừa “phê” vừa cảm giác “yêu đời, ấm áp, kết nối” ... Dùng",
+                    "score": 0.051201314
+                  },
+                  {
+                    "title": "Trường THCS Phú Thái - Facebook",
+                    "url": "https://www.facebook.com/61561976662746?locale=cx_PH",
+                    "source": "facebook.com",
+                    "summary": "Chỉ một lần tò mò, thử nghiệm cũng có thể dẫn đến nghiện ngập, hủy hoại sức khỏe, tương lai và hạnh phúc gia đình. Tác hại của ma túy: - Gây tổn hại nghiêm",
+                    "score": 0.044535294
+                  },
+                  {
+                    "title": "Ngày toàn dân phòng, chống ma túy (26/6), Công an ... - Instagram",
+                    "url": "https://www.instagram.com/p/DZIMZaCFAdz",
+                    "source": "instagram.com",
+                    "summary": "Rối loạn tâm thần cấp. Không nhận ra người thân. Đập phá, tấn công người khác. Nhảy từ trên cao. Ngừng tim, suy hô hấp. Đáng sợ nhất là nhiều loại ma túy hiện",
+                    "score": 0.032079544
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi hiểu bạn đang điều trị trầm cảm và có đơn thuốc chứa Ketamine. Tuy nhiên, các triệu chứng đỏ mắt và đỏ tai mà bạn mô tả không phải là tác dụng phụ phổ biến được ghi nhận của Ketamine trong điều trị y tế. Việc đỏ mắt và đỏ tai sau khi ăn ớt thường liên quan đến phản ứng giãn mạch do chất capsaicin, nhưng nếu bạn lo ngại về tác dụng của thuốc, bạn cần trao đổi trực tiếp với bác sĩ điều trị của mình.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & trao đổi với bác sĩ\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Các triệu chứng đỏ mắt và tai của bạn có khả năng cao liên quan đến việc ăn ớt (giãn mạch). Ketamine là thuốc kê đơn cần được sử dụng nghiêm ngặt theo chỉ định. Nếu triệu chứng không giảm hoặc bạn lo lắng về thuốc, hãy liên hệ với bác sĩ chuyên khoa.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do thực phẩm (ớt)\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Phản ứng phụ của thuốc (cần bác sĩ xác nhận)\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Theo dõi xem triệu chứng có tự hết sau khi ngừng ăn ớt không.\",\n          \"Liên hệ với bác sĩ kê đơn để báo cáo về các triệu chứng mới xuất hiện.\",\n          \"Không tự ý thay đổi liều lượng hoặc cách dùng thuốc Ketamine.\"\n        ],\n        \"missing\": [\n          \"Thời gian xuất hiện triệu chứng so với thời điểm dùng thuốc.\"\n        ],\n        \"confTier\": \"mid\",\n        \"confidence\": 70,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 70,\n    \"confTier\": \"mid\",\n    \"missing\": [\n      \"Thời gian xuất hiện triệu chứng so với thời điểm dùng thuốc\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": \"Đang điều trị trầm cảm bằng Ketamine theo đơn\"\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tác dụng phụ của ketamine điều trị trầm cảm đỏ mắt đỏ tai"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "tác dụng phụ của ketamine điều trị trầm cảm đỏ mắt đỏ tai",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Ketamine (injection route) - Side effects & uses",
+                "url": "https://www.mayoclinic.org/drugs-supplements/ketamine-injection-route/description/drg-20075559",
+                "source": "mayoclinic.org",
+                "summary": "# Ketamine (injection route) - Side effects & uses - Mayo Clinic. *   Research & Education at Mayo Clinic  ## Research  Research at Mayo Clinic  Research Faculty  Laboratories  Core Facilities  Centers & Programs  Departments & Divisions  Clinical Trials  Institutional Review Board  Postdoctoral Fellowships  Training Grant Programs    ## Education  Mayo Clinic College of Medicine and Science  Mayo Clinic Graduate School of Biomedical Sciences  Mayo Clinic Alix School of Medicine  Mayo Clinic School of Graduate Medical Education  Mayo Clinic School of Health Sciences  Mayo Clinic School of Continuous Professional Development    Mayo Clinic College of Medicine and Science     Image 5. Ketamine injection is used alone or together with other medicines to produce loss of consciousness before and during surgery or a medical procedure. Tell your doctor if you have ever had any unusual or allergic reaction to this medicine or any other medicines. Your doctor may decide not to treat you with this medication or change some of the other medicines you take.",
+                "score": 0.26359156
+              },
+              {
+                "title": "Hướng dẫn sử dụng que thử ma túy. Cách đọc kết quả test ma túy",
+                "url": "https://www.pharmacity.vn/huong-dan-su-dung-que-thu-ma-tuy.htm",
+                "source": "pharmacity.vn",
+                "summary": "AMP (Amphetamine) là chất kích thích hệ thần kinh trung ương, thường làm tăng sự tỉnh táo, tập trung và giảm cảm giác mệt mỏi. Tuy nhiên, khi bị lạm dụng,",
+                "score": 0.08679465
+              },
+              {
+                "title": "Các dấu hiệu nhận biết người nghiện m.a t.u.y #ThuVienPhapLuat ...",
+                "url": "https://www.instagram.com/reel/DY7UciYiFHf",
+                "source": "instagram.com",
+                "summary": "Là một trong những chất nghiện khó dứt nhất. KẸO (thuốc lắc, ecstasy, MDMA) ... Đánh thẳng vào serotonin → vừa “phê” vừa cảm giác “yêu đời, ấm áp, kết nối” ... Dùng",
+                "score": 0.051201314
+              },
+              {
+                "title": "Trường THCS Phú Thái - Facebook",
+                "url": "https://www.facebook.com/61561976662746?locale=cx_PH",
+                "source": "facebook.com",
+                "summary": "Chỉ một lần tò mò, thử nghiệm cũng có thể dẫn đến nghiện ngập, hủy hoại sức khỏe, tương lai và hạnh phúc gia đình. Tác hại của ma túy: - Gây tổn hại nghiêm",
+                "score": 0.044535294
+              },
+              {
+                "title": "Ngày toàn dân phòng, chống ma túy (26/6), Công an ... - Instagram",
+                "url": "https://www.instagram.com/p/DZIMZaCFAdz",
+                "source": "instagram.com",
+                "summary": "Rối loạn tâm thần cấp. Không nhận ra người thân. Đập phá, tấn công người khác. Nhảy từ trên cao. Ngừng tim, suy hô hấp. Đáng sợ nhất là nhiều loại ma túy hiện",
+                "score": 0.032079544
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T16:31:20"
+    }
+  ]
+}

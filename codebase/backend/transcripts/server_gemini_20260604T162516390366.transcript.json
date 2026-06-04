@@ -1,0 +1,66 @@
+{
+  "transcript_id": "server_gemini_20260604T162516390366",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:25:16",
+  "updated_at": "2026-06-04T16:25:21",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:25:16",
+      "user": "tôi không thở được",
+      "history_length": 4,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"emergency\",\n      \"flag\": \"Khó thở là một dấu hiệu nguy hiểm cần được chăm sóc y tế khẩn cấp.\"\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"red\",\n        \"eyebrow\": \"Cảnh báo khẩn cấp\",\n        \"label\": \"Cần hỗ trợ y tế ngay\",\n        \"icon\": \"🚨\",\n        \"reason\": \"Bạn đang gặp tình trạng khó thở kèm theo sốt và đau họng. Khó thở là dấu hiệu nguy hiểm cần được bác sĩ kiểm tra ngay lập tức để loại trừ các biến chứng nghiêm trọng về đường hô hấp.\",\n        \"conditions\": [\n          {\n            \"name\": \"Viêm đường hô hấp cấp tính nặng\",\n            \"pct\": \"Cao\"\n          },\n          {\n            \"name\": \"Viêm thanh quản/nắp thanh quản\",\n            \"pct\": \"Trung bình\"\n          }\n        ],\n        \"actions\": [\n          \"Gọi cấp cứu hoặc đến ngay cơ sở y tế gần nhất.\",\n          \"Không tự ý dùng thuốc khi chưa có chỉ định của bác sĩ.\",\n          \"Giữ bình tĩnh và cố gắng hít thở đều trong khi chờ hỗ trợ.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 90,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"emergency\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 90,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": null\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "emergency",
+              "args": {
+                "flag": "Khó thở là một dấu hiệu nguy hiểm cần được chăm sóc y tế khẩn cấp."
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "emergency",
+              "args": {
+                "flag": "Khó thở là một dấu hiệu nguy hiểm cần được chăm sóc y tế khẩn cấp."
+              },
+              "result": {
+                "error": "unknown_tool",
+                "message": "No local implementation for emergency"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"emergency\",\n      \"flag\": \"Khó thở là một dấu hiệu nguy hiểm cần được chăm sóc y tế khẩn cấp.\"\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"red\",\n        \"eyebrow\": \"Cảnh báo khẩn cấp\",\n        \"label\": \"Cần hỗ trợ y tế ngay\",\n        \"icon\": \"🚨\",\n        \"reason\": \"Bạn đang gặp tình trạng khó thở kèm theo sốt và đau họng. Khó thở là dấu hiệu nguy hiểm cần được bác sĩ kiểm tra ngay lập tức để loại trừ các biến chứng nghiêm trọng về đường hô hấp.\",\n        \"conditions\": [\n          {\n            \"name\": \"Viêm đường hô hấp cấp tính nặng\",\n            \"pct\": \"Cao\"\n          },\n          {\n            \"name\": \"Viêm thanh quản/nắp thanh quản\",\n            \"pct\": \"Trung bình\"\n          }\n        ],\n        \"actions\": [\n          \"Gọi cấp cứu hoặc đến ngay cơ sở y tế gần nhất.\",\n          \"Không tự ý dùng thuốc khi chưa có chỉ định của bác sĩ.\",\n          \"Giữ bình tĩnh và cố gắng hít thở đều trong khi chờ hỗ trợ.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 90,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"emergency\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 90,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": null\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "emergency",
+          "args": {
+            "flag": "Khó thở là một dấu hiệu nguy hiểm cần được chăm sóc y tế khẩn cấp."
+          },
+          "result": {
+            "error": "unknown_tool",
+            "message": "No local implementation for emergency"
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T16:25:21"
+    }
+  ]
+}

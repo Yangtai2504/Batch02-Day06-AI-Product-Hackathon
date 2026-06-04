@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T162739991117",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:27:39",
+  "updated_at": "2026-06-04T16:27:43",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:27:39",
+      "user": "Tôi chỉ có 2 dấu hiệu vậy thôi.",
+      "history_length": 5,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên thông tin bạn cung cấp, các triệu chứng đỏ mắt và đỏ tai sau khi ăn ớt có thể là phản ứng sinh lý tạm thời do tác động của capsaicin (chất gây cay trong ớt) làm giãn mạch máu ngoại biên. Nếu không có các triệu chứng nghiêm trọng như khó thở, sưng phù mặt hay nổi mẩn, tình trạng này thường tự hết sau một thời gian ngắn.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do thực phẩm cay\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Kích ứng nhẹ\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Uống nhiều nước hoặc sữa để làm dịu cảm giác cay.\",\n          \"Rửa mặt bằng nước mát để giảm nhiệt độ da.\",\n          \"Theo dõi xem các triệu chứng có giảm dần trong vài giờ tới không.\",\n          \"Tránh dụi mắt để tránh gây kích ứng thêm cho niêm mạc mắt.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": false,\n      \"context\": \"Ăn nhiều ớt\"\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên thông tin bạn cung cấp, các triệu chứng đỏ mắt và đỏ tai sau khi ăn ớt có thể là phản ứng sinh lý tạm thời do tác động của capsaicin (chất gây cay trong ớt) làm giãn mạch máu ngoại biên. Nếu không có các triệu chứng nghiêm trọng như khó thở, sưng phù mặt hay nổi mẩn, tình trạng này thường tự hết sau một thời gian ngắn.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do thực phẩm cay\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Kích ứng nhẹ\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Uống nhiều nước hoặc sữa để làm dịu cảm giác cay.\",\n          \"Rửa mặt bằng nước mát để giảm nhiệt độ da.\",\n          \"Theo dõi xem các triệu chứng có giảm dần trong vài giờ tới không.\",\n          \"Tránh dụi mắt để tránh gây kích ứng thêm cho niêm mạc mắt.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": false,\n      \"context\": \"Ăn nhiều ớt\"\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:27:43"
+    }
+  ]
+}
