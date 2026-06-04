@@ -1,0 +1,239 @@
+{
+  "transcript_id": "v0_gemini_20260604T105131455650",
+  "version": "v0",
+  "artifact_version": "v0+p0ce376794359+ta254f6477f56",
+  "prompt_hash": "0ce376794359dc5a7cf0fcc1544a0577289a7975da56b5d9120626c8cd6d6747",
+  "tools_hash": "a254f6477f5665307ea90f37fe1ddf7c55f073ce463f4b0a12ec5aced94a3867",
+  "provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "system_prompt": "D:\\ForCoding\\CodeProject\\VinAIEnv\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "D:\\ForCoding\\CodeProject\\VinAIEnv\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T10:51:31",
+  "updated_at": "2026-06-04T10:57:37",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T10:51:37",
+      "user": "tôi bị đau họng quá",
+      "status": "answered",
+      "assistant_text": "confidence: 50%Bạn bị đau họng như thế nào? Bạn có sốt, khó nuốt hay ho không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "confidence: 50%Bạn bị đau họng như thế nào? Bạn có sốt, khó nuốt hay ho không?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T10:51:40"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-06-04T10:51:50",
+      "user": "Tôi bị sốt",
+      "status": "answered",
+      "assistant_text": "confidence: 70%Bạn bị sốt bao nhiêu độ? Bạn có các triệu chứng khác như khó nuốt, ho, sổ mũi, hay mệt mỏi không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "confidence: 60%",
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "đau họng và sốt"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "đau họng và sốt"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "đau họng và sốt",
+                "topic": "general",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "\"Tôi cảm thấy đỡ hơn một chút rồi. Hết sốt, nhưng vẫn còn đau họng ...",
+                    "url": "https://x.com/JuneNannirin_VN/status/2061713302087258385",
+                    "source": "x.com",
+                    "summary": "\"Tôi cảm thấy đỡ hơn một chút rồi. Hết sốt, nhưng vẫn còn đau họng. Hôm qua, amidan của tôi đầy mủ và tôi bị sốt. Đừng lo lắng quá nhé\"",
+                    "score": 0.99869555
+                  },
+                  {
+                    "title": "Làm sao để phân biệt sốt mọc răng và sốt viêm họng ở trẻ?",
+                    "url": "https://nhathuoclongchau.com.vn/bai-viet/lam-sao-de-phan-biet-tre-sot-moc-rang-va-sot-viem-hong.html",
+                    "source": "nhathuoclongchau.com.vn",
+                    "summary": "Viêm họng là một trong những nguyên nhân gây ra sốt ở trẻ. Sốt do viêm họng thường cao hơn 38°C và có thể gây ra rét run, ra mồ hôi nhiều hơn, mất nước, mệt mỏi",
+                    "score": 0.99750805
+                  },
+                  {
+                    "title": "gây ho, sổ mũi, đau họng, sốt và mệt mỏi. Viêm tai giữa - Facebook",
+                    "url": "https://www.facebook.com/bvdkgiadinh/posts/%EF%B8%8F-tphcm-s%C3%A1ng-n%E1%BA%AFng-g%E1%BA%AFt-chi%E1%BB%81u-m%C6%B0a-d%C3%B4ng-c%E1%BA%A9n-th%E1%BA%ADn-b%E1%BB%87nh-tai-m%C5%A9i-h%E1%BB%8Dngth%E1%BB%9Di-ti%E1%BA%BFt-tphcm-n/1337241611943626",
+                    "source": "facebook.com",
+                    "summary": "✓ Viêm họng, viêm amidan: dễ xuất hiện khi uống nước lạnh, ở phòng máy ... ✓ Cảm cúm, viêm đường hô hấp trên: gây ho, sổ mũi, đau họng, sốt và mệt mỏi.",
+                    "score": 0.9951703
+                  },
+                  {
+                    "title": "Cẩn thận hạt xơ dây thanh Khàn tiếng kéo dài, nói hụt hơi, mất tiếng ...",
+                    "url": "https://www.facebook.com/benhviendakhoatinhphutho/posts/%EF%B8%8F%EF%B8%8F-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-m%E1%BA%A5t-ti%E1%BA%BFng-c%E1%BA%A9n-th%E1%BA%ADn-h%E1%BA%A1t-x%C6%A1-d%C3%A2y-thanh-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-n%C3%B3i/1312033837744183",
+                    "source": "facebook.com",
+                    "summary": "Thì biểu hiện của một cái viêm họng cấp thông thường sẽ là bệnh nhân sẽ xuất hiện các triệu chứng đau họng này. Nuốt đau này. Kèm theo sốt hoặc là ho đờm. Ờ tuy",
+                    "score": 0.9911527
+                  },
+                  {
+                    "title": "ĐỪNG ĐỢI CON SỐT CAO MỚI ĐI KIỂM TRA TAI MŨI HỌNG ...",
+                    "url": "https://www.instagram.com/p/DZBzpztDDeZ",
+                    "source": "instagram.com",
+                    "summary": "Nguyên nhân là do dịch mũi họng lan lên tai giữa, gây viêm và ứ dịch trong tai. ... Viêm amidan: Gây đau họng, khó nuốt, sốt; có nguy cơ dẫn đến các",
+                    "score": 0.9884919
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "confidence: 70%Bạn bị sốt bao nhiêu độ? Bạn có các triệu chứng khác như khó nuốt, ho, sổ mũi, hay mệt mỏi không?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "đau họng và sốt"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "đau họng và sốt",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "\"Tôi cảm thấy đỡ hơn một chút rồi. Hết sốt, nhưng vẫn còn đau họng ...",
+                "url": "https://x.com/JuneNannirin_VN/status/2061713302087258385",
+                "source": "x.com",
+                "summary": "\"Tôi cảm thấy đỡ hơn một chút rồi. Hết sốt, nhưng vẫn còn đau họng. Hôm qua, amidan của tôi đầy mủ và tôi bị sốt. Đừng lo lắng quá nhé\"",
+                "score": 0.99869555
+              },
+              {
+                "title": "Làm sao để phân biệt sốt mọc răng và sốt viêm họng ở trẻ?",
+                "url": "https://nhathuoclongchau.com.vn/bai-viet/lam-sao-de-phan-biet-tre-sot-moc-rang-va-sot-viem-hong.html",
+                "source": "nhathuoclongchau.com.vn",
+                "summary": "Viêm họng là một trong những nguyên nhân gây ra sốt ở trẻ. Sốt do viêm họng thường cao hơn 38°C và có thể gây ra rét run, ra mồ hôi nhiều hơn, mất nước, mệt mỏi",
+                "score": 0.99750805
+              },
+              {
+                "title": "gây ho, sổ mũi, đau họng, sốt và mệt mỏi. Viêm tai giữa - Facebook",
+                "url": "https://www.facebook.com/bvdkgiadinh/posts/%EF%B8%8F-tphcm-s%C3%A1ng-n%E1%BA%AFng-g%E1%BA%AFt-chi%E1%BB%81u-m%C6%B0a-d%C3%B4ng-c%E1%BA%A9n-th%E1%BA%ADn-b%E1%BB%87nh-tai-m%C5%A9i-h%E1%BB%8Dngth%E1%BB%9Di-ti%E1%BA%BFt-tphcm-n/1337241611943626",
+                "source": "facebook.com",
+                "summary": "✓ Viêm họng, viêm amidan: dễ xuất hiện khi uống nước lạnh, ở phòng máy ... ✓ Cảm cúm, viêm đường hô hấp trên: gây ho, sổ mũi, đau họng, sốt và mệt mỏi.",
+                "score": 0.9951703
+              },
+              {
+                "title": "Cẩn thận hạt xơ dây thanh Khàn tiếng kéo dài, nói hụt hơi, mất tiếng ...",
+                "url": "https://www.facebook.com/benhviendakhoatinhphutho/posts/%EF%B8%8F%EF%B8%8F-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-m%E1%BA%A5t-ti%E1%BA%BFng-c%E1%BA%A9n-th%E1%BA%ADn-h%E1%BA%A1t-x%C6%A1-d%C3%A2y-thanh-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-n%C3%B3i/1312033837744183",
+                "source": "facebook.com",
+                "summary": "Thì biểu hiện của một cái viêm họng cấp thông thường sẽ là bệnh nhân sẽ xuất hiện các triệu chứng đau họng này. Nuốt đau này. Kèm theo sốt hoặc là ho đờm. Ờ tuy",
+                "score": 0.9911527
+              },
+              {
+                "title": "ĐỪNG ĐỢI CON SỐT CAO MỚI ĐI KIỂM TRA TAI MŨI HỌNG ...",
+                "url": "https://www.instagram.com/p/DZBzpztDDeZ",
+                "source": "instagram.com",
+                "summary": "Nguyên nhân là do dịch mũi họng lan lên tai giữa, gây viêm và ứ dịch trong tai. ... Viêm amidan: Gây đau họng, khó nuốt, sốt; có nguy cơ dẫn đến các",
+                "score": 0.9884919
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T10:52:00"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-06-04T10:52:21",
+      "user": "Tôi sốt 38.5 độ",
+      "status": "answered",
+      "assistant_text": "confidence: 75%Bạn có khó nuốt, ho, hay đau nhức cơ thể không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "confidence: 75%Bạn có khó nuốt, ho, hay đau nhức cơ thể không?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T10:52:23"
+    },
+    {
+      "turn_index": 4,
+      "started_at": "2026-06-04T10:52:30",
+      "user": "Tôi khó nuốt lám",
+      "status": "answered",
+      "assistant_text": "confidence: 80%\nKết quả đánh giá\n\nGặp bác sĩ\n\nLý do:\nBạn bị đau họng, sốt 38.5 độ và khó nuốt. Các triệu chứng này có thể là dấu hiệu của nhiễm trùng cần được bác sĩ thăm khám.\n\nCó thể liên quan đến:\n• Viêm họng cấp\n• Viêm amidan\n• Cảm cúm\n\nNên làm gì:\n• Uống nhiều nước ấm.\n• Súc miệng bằng nước muối ấm.\n• Nghỉ ngơi đầy đủ.\n• Tránh các thức ăn cay nóng, nhiều dầu mỡ.\n• Đến gặp bác sĩ để được chẩn đoán và điều trị kịp thời.\n\nThông tin còn thiếu:\n• Bạn có bị sưng hạch cổ không?\n• Bạn có bị phát ban không?\n• Bạn có tiền sử bệnh lý gì không?\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "đau họng sốt khó nuốt"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "đau họng sốt khó nuốt"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "đau họng sốt khó nuốt",
+                "topic": "general",
+                "timeframe": "week",
+                "items": []
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "confidence: 80%\nKết quả đánh giá\n\nGặp bác sĩ\n\nLý do:\nBạn bị đau họng, sốt 38.5 độ và khó nuốt. Các triệu chứng này có thể là dấu hiệu của nhiễm trùng cần được bác sĩ thăm khám.\n\nCó thể liên quan đến:\n• Viêm họng cấp\n• Viêm amidan\n• Cảm cúm\n\nNên làm gì:\n• Uống nhiều nước ấm.\n• Súc miệng bằng nước muối ấm.\n• Nghỉ ngơi đầy đủ.\n• Tránh các thức ăn cay nóng, nhiều dầu mỡ.\n• Đến gặp bác sĩ để được chẩn đoán và điều trị kịp thời.\n\nThông tin còn thiếu:\n• Bạn có bị sưng hạch cổ không?\n• Bạn có bị phát ban không?\n• Bạn có tiền sử bệnh lý gì không?\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "đau họng sốt khó nuốt"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "đau họng sốt khó nuốt",
+            "topic": "general",
+            "timeframe": "week",
+            "items": []
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T10:52:37"
+    }
+  ]
+}

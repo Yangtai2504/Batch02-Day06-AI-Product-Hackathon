@@ -1,0 +1,269 @@
+{
+  "transcript_id": "v0_gemini_20260604T105740813676",
+  "version": "v0",
+  "artifact_version": "v0+p0a72c766fcef+ta254f6477f56",
+  "prompt_hash": "0a72c766fcef44cd0ecf0e8efad28b436e836d5110ea3581c82177afc6b32296",
+  "tools_hash": "a254f6477f5665307ea90f37fe1ddf7c55f073ce463f4b0a12ec5aced94a3867",
+  "provider": "gemini",
+  "model": "gemini-2.5-flash",
+  "system_prompt": "D:\\ForCoding\\CodeProject\\VinAIEnv\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "D:\\ForCoding\\CodeProject\\VinAIEnv\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T10:57:40",
+  "updated_at": "2026-06-04T11:09:03",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T10:57:47",
+      "user": "Tôi bị đau họng",
+      "status": "answered",
+      "assistant_text": "confidence: 50%\nBạn có các triệu chứng nào khác kèm theo không, ví dụ như sốt, ho, hay khó nuốt?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "confidence: 50%\nBạn có các triệu chứng nào khác kèm theo không, ví dụ như sốt, ho, hay khó nuốt?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T10:57:53"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-06-04T10:58:09",
+      "user": "Tôi bị khó nuốt",
+      "status": "answered",
+      "assistant_text": "confidence: 65%\nBạn có bị sốt không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "đau họng và khó nuốt"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "đau họng và khó nuốt"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "đau họng và khó nuốt",
+                "topic": "general",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "Phuong Nam Hospital | NGUY CƠ VIÊM HỌNG THỜI ĐIỂM GIAO MÙA ...",
+                    "url": "https://www.instagram.com/p/DY6J1KfmIT7",
+                    "source": "instagram.com",
+                    "summary": "Viêm amidan: Gây đau họng, khó nuốt, sốt; có nguy cơ dẫn đến các biến chứng như viêm tai giữa, viêm xoang,... Viêm xoang: Gây đau nhức vùng mặt, nghẹt",
+                    "score": 0.6334335
+                  },
+                  {
+                    "title": "ĐAU HỌNG, VIÊM HỌNG CÓ PHẢI LÚC NÀO CŨNG CẦN KHÁNG ...",
+                    "url": "https://www.facebook.com/taimuihongdrtrananh/posts/-%C4%91au-h%E1%BB%8Dng-vi%C3%AAm-h%E1%BB%8Dng-c%C3%B3-ph%E1%BA%A3i-l%C3%BAc-n%C3%A0o-c%C5%A9ng-c%E1%BA%A7n-kh%C3%A1ng-sinhnhi%E1%BB%81u-ng%C6%B0%E1%BB%9Di-c%C3%B3-th%C3%B3i-quen-/1032754012415074",
+                    "source": "facebook.com",
+                    "summary": "Bạn nên đi khám Tai – Mũi – Họng nếu có các dấu hiệu: ▪️ Sốt cao kéo dài ▪️ Đau họng nhiều, nuốt khó ▪️ Amidan sưng to, có mủ ▪️ Khàn tiếng kéo dài ▪️ Hạch cổ sưng",
+                    "score": 0.6213807
+                  },
+                  {
+                    "title": "Khàn tiếng có phải dấu hiệu ung thư vòm họng? - Báo VnExpress",
+                    "url": "https://vnexpress.net/khan-tieng-co-phai-dau-hieu-ung-thu-vom-hong-5014565.html",
+                    "source": "vnexpress.net",
+                    "summary": "Ung thư vòm họng diễn tiến âm thầm, triệu chứng không đặc trưng như đau họng, khó nuốt, dễ nhầm lẫn với bệnh lý tai mũi họng thông thường như viêm mũi xoang,",
+                    "score": 0.5798055
+                  },
+                  {
+                    "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng - Báo Mới",
+                    "url": "https://baomoi.com/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-c55277880.epi",
+                    "source": "baomoi.com",
+                    "summary": "Nếu đau họng kéo dài nhiều ngày không cải thiện hoặc xuất hiện các dấu hiệu như sốt cao, khó nuốt, khàn tiếng kéo dài, ho nhiều, tức ngực… người bệnh nên đến cơ",
+                    "score": 0.5310884
+                  },
+                  {
+                    "title": "Cẩn thận hạt xơ dây thanh Khàn tiếng kéo dài, nói hụt hơi, mất ... - Facebook",
+                    "url": "https://www.facebook.com/benhviendakhoatinhphutho/posts/%EF%B8%8F%EF%B8%8F-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-m%E1%BA%A5t-ti%E1%BA%BFng-c%E1%BA%A9n-th%E1%BA%ADn-h%E1%BA%A1t-x%C6%A1-d%C3%A2y-thanh-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-n%C3%B3i/1312033837744183",
+                    "source": "facebook.com",
+                    "summary": "Thì biểu hiện của một cái viêm họng cấp thông thường sẽ là bệnh nhân sẽ xuất hiện các triệu chứng đau họng này. Nuốt đau này. Kèm theo sốt hoặc là ho đờm. Ờ tuy",
+                    "score": 0.50183165
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "confidence: 65%\nBạn có bị sốt không?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "đau họng và khó nuốt"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "đau họng và khó nuốt",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Phuong Nam Hospital | NGUY CƠ VIÊM HỌNG THỜI ĐIỂM GIAO MÙA ...",
+                "url": "https://www.instagram.com/p/DY6J1KfmIT7",
+                "source": "instagram.com",
+                "summary": "Viêm amidan: Gây đau họng, khó nuốt, sốt; có nguy cơ dẫn đến các biến chứng như viêm tai giữa, viêm xoang,... Viêm xoang: Gây đau nhức vùng mặt, nghẹt",
+                "score": 0.6334335
+              },
+              {
+                "title": "ĐAU HỌNG, VIÊM HỌNG CÓ PHẢI LÚC NÀO CŨNG CẦN KHÁNG ...",
+                "url": "https://www.facebook.com/taimuihongdrtrananh/posts/-%C4%91au-h%E1%BB%8Dng-vi%C3%AAm-h%E1%BB%8Dng-c%C3%B3-ph%E1%BA%A3i-l%C3%BAc-n%C3%A0o-c%C5%A9ng-c%E1%BA%A7n-kh%C3%A1ng-sinhnhi%E1%BB%81u-ng%C6%B0%E1%BB%9Di-c%C3%B3-th%C3%B3i-quen-/1032754012415074",
+                "source": "facebook.com",
+                "summary": "Bạn nên đi khám Tai – Mũi – Họng nếu có các dấu hiệu: ▪️ Sốt cao kéo dài ▪️ Đau họng nhiều, nuốt khó ▪️ Amidan sưng to, có mủ ▪️ Khàn tiếng kéo dài ▪️ Hạch cổ sưng",
+                "score": 0.6213807
+              },
+              {
+                "title": "Khàn tiếng có phải dấu hiệu ung thư vòm họng? - Báo VnExpress",
+                "url": "https://vnexpress.net/khan-tieng-co-phai-dau-hieu-ung-thu-vom-hong-5014565.html",
+                "source": "vnexpress.net",
+                "summary": "Ung thư vòm họng diễn tiến âm thầm, triệu chứng không đặc trưng như đau họng, khó nuốt, dễ nhầm lẫn với bệnh lý tai mũi họng thông thường như viêm mũi xoang,",
+                "score": 0.5798055
+              },
+              {
+                "title": "4 bí quyết giúp bạn nằm máy lạnh không bị đau họng - Báo Mới",
+                "url": "https://baomoi.com/4-bi-quyet-giup-ban-nam-may-lanh-khong-bi-dau-hong-c55277880.epi",
+                "source": "baomoi.com",
+                "summary": "Nếu đau họng kéo dài nhiều ngày không cải thiện hoặc xuất hiện các dấu hiệu như sốt cao, khó nuốt, khàn tiếng kéo dài, ho nhiều, tức ngực… người bệnh nên đến cơ",
+                "score": 0.5310884
+              },
+              {
+                "title": "Cẩn thận hạt xơ dây thanh Khàn tiếng kéo dài, nói hụt hơi, mất ... - Facebook",
+                "url": "https://www.facebook.com/benhviendakhoatinhphutho/posts/%EF%B8%8F%EF%B8%8F-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-m%E1%BA%A5t-ti%E1%BA%BFng-c%E1%BA%A9n-th%E1%BA%ADn-h%E1%BA%A1t-x%C6%A1-d%C3%A2y-thanh-kh%C3%A0n-ti%E1%BA%BFng-k%C3%A9o-d%C3%A0i-n%C3%B3i/1312033837744183",
+                "source": "facebook.com",
+                "summary": "Thì biểu hiện của một cái viêm họng cấp thông thường sẽ là bệnh nhân sẽ xuất hiện các triệu chứng đau họng này. Nuốt đau này. Kèm theo sốt hoặc là ho đờm. Ờ tuy",
+                "score": 0.50183165
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T10:58:16"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-06-04T10:58:23",
+      "user": "Không",
+      "status": "answered",
+      "assistant_text": "confidence: 75%\nKết quả đánh giá\n\nGặp bác sĩ\n\nLý do: Bạn đang bị đau họng và khó nuốt. Mặc dù không có sốt, nhưng khó nuốt có thể là dấu hiệu của một tình trạng cần được bác sĩ kiểm tra để chẩn đoán chính xác và điều trị phù hợp.\n\nCó thể liên quan đến:\n• Viêm họng\n• Viêm amidan\n\nNên làm gì:\n• Đến gặp bác sĩ để được thăm khám và chẩn đoán.\n• Uống nhiều nước ấm.\n• Tránh ăn các thức ăn cay nóng, cứng hoặc quá chua có thể gây kích ứng họng.\n\nThông tin còn thiếu:\n• Các triệu chứng khác kèm theo (ví dụ: ho, đau người, sưng hạch).\n• Thời gian xuất hiện các triệu chứng.\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "đau họng khó nuốt không sốt",
+                "max_results": 3
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "đau họng khó nuốt không sốt",
+                "max_results": 3
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "đau họng khó nuốt không sốt",
+                "topic": "general",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "Ho khan, rát họng nhưng không sốt có cần dùng đến kháng sinh ...",
+                    "url": "https://www.tiktok.com/@otosan.vn/video/7644879490807549201",
+                    "source": "tiktok.com",
+                    "summary": "Ho khan, rát họng nhưng không sốt có cần dùng đến kháng sinh không? #Otosan #GelForte #Hokhan #Khantieng #Dauhong.",
+                    "score": 0.9916196
+                  },
+                  {
+                    "title": "Nuốt đau họng như bị hóc xương là dấu hiệu của bệnh gì?",
+                    "url": "https://tiemchunglongchau.com.vn/kien-thuc-tiem-chung/nuot-dau-hong-nhu-bi-hoc-xuong-la-dau-hieu-cua-benh-gi",
+                    "source": "tiemchunglongchau.com.vn",
+                    "summary": "Nuốt đau họng như bị hóc xương là tình trạng gây khó chịu khi ăn uống hoặc nói chuyện. Triệu chứng này có thể do viêm họng thông thường, nhưng cũng có thể",
+                    "score": 0.98942953
+                  },
+                  {
+                    "title": "bệnh lý tai mũi họng rất dễ tái phát, đặc biệt khi thời tiết ... - Facebook",
+                    "url": "https://www.facebook.com/benhviendakhoathaian/posts/-ph%C3%B2ng-ng%E1%BB%ABa-vi%C3%AAm-amidan-quay-l%E1%BA%A1i-b%C3%AD-quy%E1%BA%BFt-%C4%91%C6%A1n-gi%E1%BA%A3n-nh%C6%B0ng-nhi%E1%BB%81u-ng%C6%B0%E1%BB%9Di-b%E1%BB%8F-quab%E1%BA%A1n-t/1664292641778571",
+                    "source": "facebook.com",
+                    "summary": "... đau họng, sốt, nuốt vướng, khàn tiếng? Đó có thể là dấu hiệu viêm amidan - bệnh lý tai mũi họng rất dễ tái phát, đặc biệt khi thời tiết thay đổi hoặc sức đề",
+                    "score": 0.9868787
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "confidence: 75%\nKết quả đánh giá\n\nGặp bác sĩ\n\nLý do: Bạn đang bị đau họng và khó nuốt. Mặc dù không có sốt, nhưng khó nuốt có thể là dấu hiệu của một tình trạng cần được bác sĩ kiểm tra để chẩn đoán chính xác và điều trị phù hợp.\n\nCó thể liên quan đến:\n• Viêm họng\n• Viêm amidan\n\nNên làm gì:\n• Đến gặp bác sĩ để được thăm khám và chẩn đoán.\n• Uống nhiều nước ấm.\n• Tránh ăn các thức ăn cay nóng, cứng hoặc quá chua có thể gây kích ứng họng.\n\nThông tin còn thiếu:\n• Các triệu chứng khác kèm theo (ví dụ: ho, đau người, sưng hạch).\n• Thời gian xuất hiện các triệu chứng.\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "đau họng khó nuốt không sốt",
+            "max_results": 3
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "đau họng khó nuốt không sốt",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Ho khan, rát họng nhưng không sốt có cần dùng đến kháng sinh ...",
+                "url": "https://www.tiktok.com/@otosan.vn/video/7644879490807549201",
+                "source": "tiktok.com",
+                "summary": "Ho khan, rát họng nhưng không sốt có cần dùng đến kháng sinh không? #Otosan #GelForte #Hokhan #Khantieng #Dauhong.",
+                "score": 0.9916196
+              },
+              {
+                "title": "Nuốt đau họng như bị hóc xương là dấu hiệu của bệnh gì?",
+                "url": "https://tiemchunglongchau.com.vn/kien-thuc-tiem-chung/nuot-dau-hong-nhu-bi-hoc-xuong-la-dau-hieu-cua-benh-gi",
+                "source": "tiemchunglongchau.com.vn",
+                "summary": "Nuốt đau họng như bị hóc xương là tình trạng gây khó chịu khi ăn uống hoặc nói chuyện. Triệu chứng này có thể do viêm họng thông thường, nhưng cũng có thể",
+                "score": 0.98942953
+              },
+              {
+                "title": "bệnh lý tai mũi họng rất dễ tái phát, đặc biệt khi thời tiết ... - Facebook",
+                "url": "https://www.facebook.com/benhviendakhoathaian/posts/-ph%C3%B2ng-ng%E1%BB%ABa-vi%C3%AAm-amidan-quay-l%E1%BA%A1i-b%C3%AD-quy%E1%BA%BFt-%C4%91%C6%A1n-gi%E1%BA%A3n-nh%C6%B0ng-nhi%E1%BB%81u-ng%C6%B0%E1%BB%9Di-b%E1%BB%8F-quab%E1%BA%A1n-t/1664292641778571",
+                "source": "facebook.com",
+                "summary": "... đau họng, sốt, nuốt vướng, khàn tiếng? Đó có thể là dấu hiệu viêm amidan - bệnh lý tai mũi họng rất dễ tái phát, đặc biệt khi thời tiết thay đổi hoặc sức đề",
+                "score": 0.9868787
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T10:58:32"
+    }
+  ]
+}
