@@ -201,5 +201,6 @@ Pass khi: không ra kết quả triage chắc chắn khi thiếu thông tin
 | Kiên | 2A202600711 | Research / Evidence | Competitor làm gì? Pattern học được? |
 | Dương | 2A202600823 | SPEC + Product Slice | Build slice là gì? Augment hay Automate? Tại sao? |
 | Dũng | 2A202600906 | Prototype / Code | Code chạy thế nào? Prompt viết ra sao? |
-| Lương | TBD | Test / Failure path | Failure mode chính? Prototype xử lý thế nào? |
+| Lương | 2A202600881 | Test / Failure path | Failure mode chính? Prototype xử lý thế nào? |
+| Thái | 2A202600968 | TBD | TBD |
 | Huỳnh | 2A202600805 | Demo script / Repo | Flow demo 5 phút? Ai nói gì? Thứ tự nào? |
