@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shield, Info } from './icons.jsx'
+import { Shield, Info, Cross } from './icons.jsx'
+import { makeSymptom } from '../lib/triageEngine.js'
 
 const TIER = {
   none: { cls: 'none', text: 'Chưa đủ dữ liệu' },
@@ -60,9 +61,20 @@ function ConfidenceRing({ value, tier }) {
   )
 }
 
-export default function ProfileRail({ session }) {
+export default function ProfileRail({ session, onEditSymptoms }) {
   const { symptoms = [], confidence = 0, confTier = 'none', missing = [], stage, facts = {} } = session
   const tier = TIER[confTier] || TIER.none
+  const [editing, setEditing] = useState(false)
+  const [adding, setAdding] = useState(false)
+  const [draft, setDraft] = useState('')
+
+  const removeSymptom = (label) => onEditSymptoms?.(symptoms.filter((s) => s.label !== label))
+  const addSymptom = () => {
+    const next = makeSymptom(draft)
+    if (next && !symptoms.some((s) => s.label === next.label)) onEditSymptoms?.([...symptoms, next])
+    setDraft('')
+    setAdding(false)
+  }
   const factChips = []
   if (facts.duration) factChips.push(`⏱ ${facts.duration}`)
   if (facts.temp) factChips.push(`🌡 ${facts.temp}°C`)
@@ -91,11 +103,19 @@ export default function ProfileRail({ session }) {
         </div>
       </section>
 
-      {/* Symptoms */}
+      {/* Symptoms — editable */}
       <section className="panel">
-        <p className="panel__label">Triệu chứng AI ghi nhận</p>
+        <div className="panel__head">
+          <p className="panel__label" style={{ margin: 0 }}>Triệu chứng AI ghi nhận</p>
+          {symptoms.length > 0 && (
+            <button className="edit-toggle" onClick={() => { setEditing((v) => !v); setAdding(false) }}>
+              {editing ? 'Xong' : 'Sửa'}
+            </button>
+          )}
+        </div>
+
         {symptoms.length === 0 ? (
-          <p className="empty-hint">Chưa có triệu chứng nào. Những gì bạn mô tả sẽ hiện ở đây để bạn kiểm tra lại.</p>
+          <p className="empty-hint">Chưa có triệu chứng nào. Những gì bạn mô tả sẽ hiện ở đây để bạn kiểm tra lại — và bạn có thể sửa nếu mình hiểu sai.</p>
         ) : (
           <>
             <div className="chips">
@@ -103,25 +123,48 @@ export default function ProfileRail({ session }) {
                 {symptoms.map((s) => (
                   <motion.span
                     key={s.label}
-                    className="chip"
+                    className={`chip ${editing ? 'is-editing' : ''}`}
                     layout
                     initial={{ opacity: 0, scale: 0.7 }}
                     animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.6 }}
                     transition={{ type: 'spring', stiffness: 420, damping: 26 }}
                   >
                     <span className="chip__dot" />
                     {s.label}
+                    {editing && (
+                      <button className="chip__x" onClick={() => removeSymptom(s.label)} aria-label={`Xoá ${s.label}`}>
+                        <Cross width={12} height={12} style={{ transform: 'rotate(45deg)' }} />
+                      </button>
+                    )}
                   </motion.span>
                 ))}
               </AnimatePresence>
+
+              {editing && (adding ? (
+                <span className="chip chip--input">
+                  <input
+                    autoFocus
+                    value={draft}
+                    placeholder="triệu chứng…"
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') addSymptom(); if (e.key === 'Escape') { setAdding(false); setDraft('') } }}
+                    onBlur={() => { if (draft.trim()) addSymptom(); else setAdding(false) }}
+                  />
+                </span>
+              ) : (
+                <button className="chip chip--add" onClick={() => setAdding(true)}>＋ Thêm</button>
+              ))}
             </div>
+
+            {editing && <p className="edit-hint">Bấm ✕ để xoá hoặc “＋ Thêm” nếu mình hiểu sai triệu chứng. An sẽ đánh giá lại.</p>}
+
             {factChips.length > 0 && (
               <div className="chips" style={{ marginTop: 10 }}>
                 {factChips.map((f) => (
                   <motion.span
                     key={f}
-                    className="chip"
-                    style={{ background: 'var(--paper-2)', borderColor: 'var(--card-edge)', color: 'var(--ink-soft)' }}
+                    className="chip chip--fact"
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                   >

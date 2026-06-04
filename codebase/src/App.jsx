@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { createSession, handleUser } from './lib/triageEngine.js'
+import { createSession, handleUser, setSymptoms, callRealModel } from './lib/triageEngine.js'
 import { Cross, Restart } from './components/icons.jsx'
+import SessionHistory from './components/SessionHistory.jsx'
 import Message from './components/Message.jsx'
 import Typing from './components/Typing.jsx'
 import QuickReplies from './components/QuickReplies.jsx'
@@ -12,6 +13,7 @@ import TriageResult from './components/TriageResult.jsx'
 import Emergency from './components/Emergency.jsx'
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+const USE_REAL = !!import.meta.env.VITE_TRIAGE_API_URL // bật khi đã trỏ tới backend Gemini
 
 export default function App() {
   const [session, setSession] = useState(createSession)
@@ -24,7 +26,12 @@ export default function App() {
   const idRef = useRef(0)
   const preEmergency = useRef(null)
   const scrollRef = useRef(null)
+  const itemsRef = useRef([])
   const started = items.some((i) => i.role === 'user')
+
+  useEffect(() => {
+    itemsRef.current = items
+  }, [items])
 
   const push = useCallback((item) => {
     setItems((prev) => [...prev, { id: ++idRef.current, ...item }])
@@ -61,17 +68,47 @@ export default function App() {
     [push],
   )
 
+  // Gọi backend Gemini thật; lỗi/không cấu hình → fallback rule-based engine.
+  const runReal = useCallback(
+    async (text) => {
+      setBusy(true)
+      setTyping(true)
+      try {
+        const history = itemsRef.current
+          .filter((i) => i.type === 'message')
+          .map((i) => ({ role: i.role, text: i.text }))
+        const data = await callRealModel(history, text)
+        setTyping(false)
+        if (data.profile) setSession((s) => ({ ...createSession(), ...data.profile, result: s.result }))
+        await playEvents(data.events || [])
+      } catch (err) {
+        setTyping(false)
+        console.warn('[An] Backend lỗi, dùng rule-based engine:', err?.message || err)
+        const { session: ns, events } = handleUser(session, text)
+        setSession(ns)
+        await playEvents(events)
+      } finally {
+        setBusy(false)
+      }
+    },
+    [session, playEvents],
+  )
+
   const send = useCallback(
     (text) => {
       if (busy) return
       push({ type: 'message', role: 'user', text })
       setQuick(null)
       preEmergency.current = session
+      if (USE_REAL) {
+        runReal(text)
+        return
+      }
       const { session: ns, events } = handleUser(session, text)
       setSession(ns)
       playEvents(events)
     },
-    [busy, session, push, playEvents],
+    [busy, session, push, playEvents, runReal],
   )
 
   const reset = useCallback(() => {
@@ -87,6 +124,26 @@ export default function App() {
     setEmergency(null)
     if (preEmergency.current) setSession(preEmergency.current)
   }, [])
+
+  const editSymptoms = useCallback(
+    (next) => {
+      if (USE_REAL) {
+        // Gửi chỉnh sửa như một tin nhắn correction để backend đánh giá lại.
+        const labels = next.map((s) => s.label).join(', ')
+        send(labels ? `Cập nhật lại triệu chứng của tôi: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
+        return
+      }
+      const { session: ns, events } = setSymptoms(session, next)
+      setSession(ns)
+      if (events.length && !busy) playEvents(events)
+    },
+    [session, busy, playEvents, send],
+  )
+
+  const activeTitle =
+    session.symptoms && session.symptoms.length
+      ? session.symptoms.slice(0, 2).map((s) => s.label).join(' & ')
+      : null
 
   const onCta = useCallback(
     (cta) => {
@@ -133,7 +190,9 @@ export default function App() {
         </header>
 
         <div className="workspace">
-          <ProfileRail session={session} />
+          <SessionHistory activeTitle={activeTitle} onNew={reset} />
+
+          <ProfileRail session={session} onEditSymptoms={editSymptoms} />
 
           <main className="chat">
             <div className="chat__scroll" ref={scrollRef}>

@@ -68,17 +68,33 @@ src/
 | Animation | Framer Motion |
 | Fonts | Fraunces · Be Vietnam Pro · Spline Sans Mono (Google Fonts) |
 | AI (mặc định) | Rule-based triage engine mô phỏng — `src/lib/triageEngine.js` |
-| AI thật (tùy chọn) | Claude Messages API qua **backend proxy** (xem dưới) |
+| AI thật | **Google Gemini** qua backend `backend/server.py` (xem dưới) |
 
-### Gắn Claude (AI thật) cho điểm "AI chạy thật trong ≥1 flow"
+### Chạy AI THẬT bằng Gemini (cho điểm "AI chạy thật trong ≥1 flow")
 
-UI chỉ phụ thuộc 2 hàm `createSession()` / `handleUser()`. Để dùng model thật:
+Backend Gemini đã có sẵn trong [`backend/`](backend/) — server HTTP `server.py` (chỉ dùng
+stdlib cho tầng web) gọi Google Gemini qua `GeminiProvider`, trả về đúng schema
+`{ events, profile }` mà frontend render.
 
-1. Dựng 1 backend proxy nhỏ (Express / serverless) gọi Anthropic Messages API với
-   system prompt triage (gợi ý có trong `triageEngine.js` → `callRealModel`).
-   **Không đặt API key trong frontend.**
-2. Set `VITE_TRIAGE_API_URL` trong `.env` trỏ tới proxy (xem `.env.example`).
-3. Cho proxy trả về cùng schema `{ events: [...] }` mà `handleUser` đang dùng.
+```bash
+# 1) Backend
+cd codebase/backend
+pip install -r requirements.txt          # cần google-genai
+cp .env.example .env                      # rồi điền GEMINI_API_KEY
+#   lấy key tại https://aistudio.google.com/apikey
+python3 server.py                         # http://localhost:8787  (GET /health để kiểm tra)
+
+# 2) Frontend — trong codebase/.env
+echo 'VITE_TRIAGE_API_URL=http://localhost:8787/triage' > ../.env
+npm run dev
+```
+
+- Khi đã trỏ `VITE_TRIAGE_API_URL`, toàn bộ hội thoại đi qua **Gemini thật**; chỉnh sửa
+  triệu chứng cũng gửi correction về backend đánh giá lại.
+- Backend tắt / thiếu key / trả JSON hỏng → frontend **tự fallback rule-based engine**,
+  demo không bao giờ chết.
+- Đổi model qua `GEMINI_MODEL` trong `backend/.env` (mặc định `gemini-2.0-flash`).
+- **Không commit `.env`** (đã gitignore) — chỉ commit `.env.example`.
 
 ---
 
