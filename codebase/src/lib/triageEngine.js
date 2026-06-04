@@ -405,18 +405,57 @@ export function handleUser(prev, text) {
 }
 
 /* ============================================================
-   Gắn AI THẬT (Claude) — tùy chọn
+   Chỉnh sửa triệu chứng thủ công (Correction path từ UI)
    ------------------------------------------------------------
-   Frontend KHÔNG nên giữ API key. Dựng 1 proxy nhỏ ở backend
-   (Express / serverless) gọi Anthropic Messages API với system
-   prompt triage, rồi trỏ VITE_TRIAGE_API_URL tới đó.
+   Khi user thấy AI ghi nhận sai → xoá / thêm chip triệu chứng.
+   Nếu đã có kết quả thì đánh giá lại và giải thích.
+   ============================================================ */
+export function makeSymptom(label) {
+  const clean = (label || '').trim()
+  if (!clean) return null
+  const n = norm(clean)
+  const found = SYMPTOMS.find((s) => norm(s.label) === n || s.kw.some((k) => n.includes(k)))
+  if (found) return { label: found.label, specific: found.specific }
+  return { label: clean.charAt(0).toUpperCase() + clean.slice(1), specific: true }
+}
 
-   Gợi ý system prompt:
-   "Bạn là trợ lý phân loại triệu chứng. Luôn xác nhận lại triệu
-    chứng đã hiểu, hỏi tối đa 3 câu (mỗi lượt 1 câu), trả về JSON
-    {stage, message, quick[], result{level,reason,confidence,...}}.
-    Red flag (đau ngực, khó thở...) → trả result.level='red' ngay,
-    không hỏi thêm. Luôn kèm disclaimer 'không phải chẩn đoán y khoa'."
+export function setSymptoms(prev, symptoms) {
+  const s = structuredClone(prev)
+  s.symptoms = uniqBy(symptoms.filter(Boolean), 'label')
+  // Đồng bộ fact với chip: bỏ "Sốt" thì xoá luôn nhiệt độ kèm theo
+  if (!s.symptoms.some((x) => x.label === 'Sốt')) s.facts.temp = null
+  const sc = score(s)
+  s.confidence = sc.conf
+  s.confTier = sc.tier
+  s.missing = sc.missing
+
+  if (s.stage === 'done') {
+    const before = s.result ? s.result.level : null
+    s.result = buildResult(s)
+    const changed = before !== s.result.level
+    return {
+      session: s,
+      events: [
+        {
+          type: 'message',
+          text: `Bạn vừa chỉnh sửa lại danh sách triệu chứng. Mình đã cập nhật hồ sơ${changed ? ' — mức độ khuyến nghị thay đổi theo' : ''} và đánh giá lại:`,
+        },
+        { type: 'result', triage: s.result },
+      ],
+    }
+  }
+  return { session: s, events: [] }
+}
+
+/* ============================================================
+   Gắn AI THẬT (Google Gemini) — tùy chọn
+   ------------------------------------------------------------
+   Frontend KHÔNG giữ API key. Backend Gemini nằm ở codebase/backend/
+   (server.py) — gọi Gemini với system prompt triage và trả về cùng
+   schema { events, profile } mà UI dùng.
+
+   Bật: trỏ VITE_TRIAGE_API_URL → http://localhost:8787/triage
+   (xem .env.example và backend/README chi tiết). Lỗi → App tự fallback.
    ============================================================ */
 export async function callRealModel(history, userText) {
   const url = import.meta.env.VITE_TRIAGE_API_URL
