@@ -203,7 +203,7 @@ export default function App() {
       if (USE_REAL) {
         if (busy) return // đang xử lý lượt khác — chip vẫn hiện, chờ lượt sau
         const labels = next.map((s) => s.label).join(', ')
-        send(labels ? `Cập nhật lại triệu chứng của tôi: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
+        send(labels ? `Xin lỗi, tôi không bị: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
         return
       }
       const { session: ns, events } = setSymptoms(session, next)
