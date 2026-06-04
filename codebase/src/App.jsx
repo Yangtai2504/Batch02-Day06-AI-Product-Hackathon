@@ -201,9 +201,23 @@ export default function App() {
       // Optimistic: hiện ngay chip vừa sửa lên UI (cả 2 chế độ)
       setSession((s) => ({ ...s, symptoms: next }))
       if (USE_REAL) {
-        if (busy) return // đang xử lý lượt khác — chip vẫn hiện, chờ lượt sau
-        const labels = next.map((s) => s.label).join(', ')
-        send(labels ? `Xin lỗi, tôi không bị: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
+        if (busy) return
+
+        const removed = session.symptoms.filter(
+          (oldSymptom) =>
+            !next.some(
+              (newSymptom) => newSymptom.label === oldSymptom.label
+            )
+        )
+
+        const removedLabels = removed
+          .map((s) => s.label)
+          .join(', ')
+
+        if (removedLabels) {
+          send(`Xin lỗi, tôi không bị ${removedLabels}.`)
+        }
+
         return
       }
       const { session: ns, events } = setSymptoms(session, next)
