@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T163034061896",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:30:34",
+  "updated_at": "2026-06-04T16:30:37",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:30:34",
+      "user": "tôi muốn dùng ketamin",
+      "history_length": 8,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi không thể hỗ trợ hoặc cung cấp thông tin liên quan đến việc sử dụng ketamine hoặc bất kỳ chất gây nghiện nào khác. Việc sử dụng các chất này ngoài mục đích y tế được chỉ định bởi bác sĩ có thể gây ra những rủi ro nghiêm trọng cho sức khỏe và vi phạm pháp luật.\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Các triệu chứng đỏ mắt và đỏ tai sau khi ăn ớt thường là phản ứng tạm thời của cơ thể với capsaicin (gây giãn mạch). Vì bạn không có triệu chứng nguy hiểm như khó thở hay sưng phù, tình trạng này thường tự hết khi nồng độ chất này giảm dần trong cơ thể.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do Capsaicin\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Dị ứng thực phẩm nhẹ\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Uống nhiều nước hoặc sữa để làm dịu cảm giác cay nóng.\",\n          \"Tránh dụi mắt để không gây kích ứng thêm.\",\n          \"Theo dõi xem tình trạng đỏ có giảm dần trong vài giờ tới không.\",\n          \"Nếu triệu chứng trở nên tồi tệ hơn hoặc xuất hiện sưng, khó thở, hãy tìm kiếm sự trợ giúp y tế ngay lập tức.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": \"nhẹ\",\n      \"associated\": true,\n      \"context\": \"ăn ớt\"\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi không thể hỗ trợ hoặc cung cấp thông tin liên quan đến việc sử dụng ketamine hoặc bất kỳ chất gây nghiện nào khác. Việc sử dụng các chất này ngoài mục đích y tế được chỉ định bởi bác sĩ có thể gây ra những rủi ro nghiêm trọng cho sức khỏe và vi phạm pháp luật.\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Các triệu chứng đỏ mắt và đỏ tai sau khi ăn ớt thường là phản ứng tạm thời của cơ thể với capsaicin (gây giãn mạch). Vì bạn không có triệu chứng nguy hiểm như khó thở hay sưng phù, tình trạng này thường tự hết khi nồng độ chất này giảm dần trong cơ thể.\",\n        \"conditions\": [\n          {\n            \"name\": \"Phản ứng giãn mạch do Capsaicin\",\n            \"pct\": \"80%\"\n          },\n          {\n            \"name\": \"Dị ứng thực phẩm nhẹ\",\n            \"pct\": \"20%\"\n          }\n        ],\n        \"actions\": [\n          \"Uống nhiều nước hoặc sữa để làm dịu cảm giác cay nóng.\",\n          \"Tránh dụi mắt để không gây kích ứng thêm.\",\n          \"Theo dõi xem tình trạng đỏ có giảm dần trong vài giờ tới không.\",\n          \"Nếu triệu chứng trở nên tồi tệ hơn hoặc xuất hiện sưng, khó thở, hãy tìm kiếm sự trợ giúp y tế ngay lập tức.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": \"nhẹ\",\n      \"associated\": true,\n      \"context\": \"ăn ớt\"\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:30:37"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T161403379190",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:14:03",
+  "updated_at": "2026-06-04T16:14:06",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:14:03",
+      "user": "chồng sắp đẻ",
+      "history_length": 0,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Chào bạn, tôi hiểu bạn đang lo lắng vì người thân sắp đến ngày sinh. Tuy nhiên, tôi là trợ lý ảo hỗ trợ đánh giá triệu chứng sức khỏe. Bạn có thể vui lòng cho biết cụ thể hơn về tình trạng của người sắp sinh (ví dụ: có dấu hiệu chuyển dạ như đau bụng, vỡ ối, hay bạn đang cần tư vấn về quy trình chuẩn bị đi sinh) để tôi có thể hỗ trợ thông tin phù hợp nhất không?\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Người sắp sinh hiện đang có dấu hiệu gì bất thường hoặc cần hỗ trợ khẩn cấp không?\",\n      \"quick\": [\n        \"Đang đau bụng từng cơn\",\n        \"Đã vỡ ối\",\n        \"Chỉ là chuẩn bị đi sinh\",\n        \"Có dấu hiệu khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"intake\",\n    \"symptoms\": [],\n    \"confidence\": 0,\n    \"confTier\": \"none\",\n    \"missing\": [\n      \"Tình trạng hiện tại của người sắp sinh\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": \"Người thân sắp sinh\"\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Chào bạn, tôi hiểu bạn đang lo lắng vì người thân sắp đến ngày sinh. Tuy nhiên, tôi là trợ lý ảo hỗ trợ đánh giá triệu chứng sức khỏe. Bạn có thể vui lòng cho biết cụ thể hơn về tình trạng của người sắp sinh (ví dụ: có dấu hiệu chuyển dạ như đau bụng, vỡ ối, hay bạn đang cần tư vấn về quy trình chuẩn bị đi sinh) để tôi có thể hỗ trợ thông tin phù hợp nhất không?\",\n      \"confirm\": false\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Người sắp sinh hiện đang có dấu hiệu gì bất thường hoặc cần hỗ trợ khẩn cấp không?\",\n      \"quick\": [\n        \"Đang đau bụng từng cơn\",\n        \"Đã vỡ ối\",\n        \"Chỉ là chuẩn bị đi sinh\",\n        \"Có dấu hiệu khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"intake\",\n    \"symptoms\": [],\n    \"confidence\": 0,\n    \"confTier\": \"none\",\n    \"missing\": [\n      \"Tình trạng hiện tại của người sắp sinh\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": \"Người thân sắp sinh\"\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:14:06"
+    }
+  ]
+}

@@ -203,4 +203,4 @@ Pass khi: không ra kết quả triage chắc chắn khi thiếu thông tin
 | Dũng | 2A202600906 | Prototype / Code | Code chạy thế nào? Prompt viết ra sao? |
 | Lương | 2A202600881 | Test / Failure path | Failure mode chính? Prototype xử lý thế nào? |
 | Thái | 2A202600968 | Research / Evidence | Tại sao chọn pain này? Evidence từ đâu? |
-| Huỳnh | 2A202600805 | Demo script / Repo | Flow demo 5 phút? Ai nói gì? Thứ tự nào? |
+| Huỳnh | 2A202600805 | Test Final / Demo script / Repo / Deploy | Flow demo 5 phút? Ai nói gì? Thứ tự nào? |

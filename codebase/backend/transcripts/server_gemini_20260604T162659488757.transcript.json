@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T162659488757",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T16:26:59",
+  "updated_at": "2026-06-04T16:27:02",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T16:26:59",
+      "user": "mắt tôi bị đỏ, tai tôi cũng đỏ. Tôi nghĩ tôi ăn ớt quá nhiều?",
+      "history_length": 2,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi hiểu bạn đang bị đỏ mắt và đỏ tai, và bạn nghi ngờ nguyên nhân là do ăn quá nhiều ớt. Để tôi giúp bạn đánh giá tình trạng này nhé.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Ngoài đỏ mắt và đỏ tai, bạn có cảm thấy nóng rát ở da, khó thở, sưng môi/lưỡi, hay có triệu chứng nào khác như ngứa hoặc nổi mẩn không?\",\n      \"quick\": [\n        \"Chỉ nóng rát da\",\n        \"Có khó thở\",\n        \"Có sưng môi/lưỡi\",\n        \"Không có triệu chứng khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 30,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"triệu chứng đi kèm như khó thở, sưng tấy\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": \"ăn ớt nhiều\"\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"message\",\n      \"text\": \"Tôi hiểu bạn đang bị đỏ mắt và đỏ tai, và bạn nghi ngờ nguyên nhân là do ăn quá nhiều ớt. Để tôi giúp bạn đánh giá tình trạng này nhé.\",\n      \"confirm\": true\n    },\n    {\n      \"type\": \"question\",\n      \"text\": \"Ngoài đỏ mắt và đỏ tai, bạn có cảm thấy nóng rát ở da, khó thở, sưng môi/lưỡi, hay có triệu chứng nào khác như ngứa hoặc nổi mẩn không?\",\n      \"quick\": [\n        \"Chỉ nóng rát da\",\n        \"Có khó thở\",\n        \"Có sưng môi/lưỡi\",\n        \"Không có triệu chứng khác\"\n      ]\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"questioning\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đỏ mắt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đỏ tai\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 30,\n    \"confTier\": \"low\",\n    \"missing\": [\n      \"triệu chứng đi kèm như khó thở, sưng tấy\"\n    ],\n    \"facts\": {\n      \"duration\": null,\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": \"ăn ớt nhiều\"\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T16:27:02"
+    }
+  ]
+}
