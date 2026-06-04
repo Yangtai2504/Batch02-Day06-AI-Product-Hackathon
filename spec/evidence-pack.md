@@ -4,11 +4,11 @@ Nộp kèm thin SPEC cuối Day 05.
 
 ## 1. Nhóm và track
 
-**Tên nhóm:** [Tên nhóm]
+**Tên nhóm:** e2-3
 
 **Track:** Healthcare
 
-**Product/app đã chọn:** Ada Health
+**Product/app đã chọn:** An Health
 
 **Build slice đang nghĩ:**
 
