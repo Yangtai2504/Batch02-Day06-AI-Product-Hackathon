@@ -2,13 +2,8 @@
 
 > Báo cáo kiểm thử từ bộ test cases của Lương
 
-- **Người thực hiện:** Lương
+- **Người thực hiện:** Huỳnh
 - **Ngày:** 04/06/2026
-- **Môi trường:** Frontend React + Vite chạy tại `http://localhost:5173` và qua Cloudflare Tunnel
-- **Frontend public:** `https://phoenix-thing-jacket-andreas.trycloudflare.com`
-- **Backend public:** `https://donate-players-domestic-area.trycloudflare.com/triage`
-- **Backend:** Python HTTP server `codebase/backend/server.py`
-- **Cấu hình FE → BE:** `codebase/.env` đã thiết lập `VITE_TRIAGE_API_URL` đến backend public
 
 ---
 
