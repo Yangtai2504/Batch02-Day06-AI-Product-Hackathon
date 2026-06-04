@@ -1,0 +1,31 @@
+{
+  "transcript_id": "server_gemini_20260604T143130890296",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T14:31:30",
+  "updated_at": "2026-06-04T14:31:33",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T14:31:30",
+      "user": "1 ngày 1 tuàn",
+      "history_length": 2,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"red\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Cần hỗ trợ y tế ngay\",\n        \"icon\": \"🚨\",\n        \"reason\": \"Đau ngực kèm khó thở kéo dài trong 1 tuần là những dấu hiệu cảnh báo nghiêm trọng, có thể liên quan đến các vấn đề về tim mạch hoặc hô hấp cần được kiểm tra y tế khẩn cấp để loại trừ các tình trạng nguy hiểm đến tính mạng.\",\n        \"conditions\": [\n          {\n            \"name\": \"Các vấn đề về tim mạch (như đau thắt ngực, thiếu máu cơ tim)\",\n            \"pct\": \"Cao\"\n          },\n          {\n            \"name\": \"Các vấn đề về hô hấp (như viêm phổi, tràn dịch màng phổi)\",\n            \"pct\": \"Trung bình\"\n          }\n        ],\n        \"actions\": [\n          \"Gọi ngay dịch vụ cấp cứu (115) hoặc đến cơ sở y tế gần nhất ngay lập tức.\",\n          \"Không tự ý lái xe đến bệnh viện.\",\n          \"Ngồi nghỉ ở tư thế thoải mái nhất trong khi chờ đợi sự trợ giúp.\"\n        ],\n        \"missing\": [\n          \"Tiền sử bệnh lý tim mạch hoặc hô hấp\",\n          \"Các triệu chứng đi kèm như vã mồ hôi, buồn nôn, hoặc đau lan ra cánh tay/cổ\"\n        ],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"emergency\",\n      \"flag\": \"Đau ngực và khó thở kéo dài là dấu hiệu nguy hiểm cần được cấp cứu ngay lập tức.\"\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"emergency\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đau ngực\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [\n      \"Tiền sử bệnh lý\",\n      \"Triệu chứng đi kèm\"\n    ],\n    \"facts\": {\n      \"duration\": \"1 tuần\",\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"red\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Cần hỗ trợ y tế ngay\",\n        \"icon\": \"🚨\",\n        \"reason\": \"Đau ngực kèm khó thở kéo dài trong 1 tuần là những dấu hiệu cảnh báo nghiêm trọng, có thể liên quan đến các vấn đề về tim mạch hoặc hô hấp cần được kiểm tra y tế khẩn cấp để loại trừ các tình trạng nguy hiểm đến tính mạng.\",\n        \"conditions\": [\n          {\n            \"name\": \"Các vấn đề về tim mạch (như đau thắt ngực, thiếu máu cơ tim)\",\n            \"pct\": \"Cao\"\n          },\n          {\n            \"name\": \"Các vấn đề về hô hấp (như viêm phổi, tràn dịch màng phổi)\",\n            \"pct\": \"Trung bình\"\n          }\n        ],\n        \"actions\": [\n          \"Gọi ngay dịch vụ cấp cứu (115) hoặc đến cơ sở y tế gần nhất ngay lập tức.\",\n          \"Không tự ý lái xe đến bệnh viện.\",\n          \"Ngồi nghỉ ở tư thế thoải mái nhất trong khi chờ đợi sự trợ giúp.\"\n        ],\n        \"missing\": [\n          \"Tiền sử bệnh lý tim mạch hoặc hô hấp\",\n          \"Các triệu chứng đi kèm như vã mồ hôi, buồn nôn, hoặc đau lan ra cánh tay/cổ\"\n        ],\n        \"confTier\": \"high\",\n        \"confidence\": 85,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"emergency\",\n      \"flag\": \"Đau ngực và khó thở kéo dài là dấu hiệu nguy hiểm cần được cấp cứu ngay lập tức.\"\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"emergency\",\n    \"symptoms\": [\n      {\n        \"label\": \"Đau ngực\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Khó thở\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 85,\n    \"confTier\": \"high\",\n    \"missing\": [\n      \"Tiền sử bệnh lý\",\n      \"Triệu chứng đi kèm\"\n    ],\n    \"facts\": {\n      \"duration\": \"1 tuần\",\n      \"temp\": null,\n      \"severity\": null,\n      \"associated\": null,\n      \"context\": null\n    }\n  }\n}",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-06-04T14:31:33"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "transcript_id": "server_gemini_20260604T144415852555",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system_prompt": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\system_prompt.md",
+  "tools": "C:\\Documents\\Vin\\buoi6\\Batch02-Day06-AI-Product-Hackathon\\codebase\\backend\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-04T14:44:15",
+  "updated_at": "2026-06-04T14:44:23",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-04T14:44:15",
+      "user": "thêm sổ mũi nữa thôi bạn",
+      "history_length": 3,
+      "status": "answered",
+      "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên các triệu chứng sốt, đau họng và sổ mũi kéo dài 2 ngày, tình trạng của bạn có vẻ giống với các bệnh nhiễm trùng đường hô hấp trên thông thường (như cảm lạnh hoặc cúm nhẹ). Các triệu chứng này thường tự giới hạn nếu không có dấu hiệu cảnh báo nghiêm trọng.\",\n        \"conditions\": [\n          {\n            \"name\": \"Cảm lạnh thông thường\",\n            \"pct\": \"60%\"\n          },\n          {\n            \"name\": \"Cúm mùa\",\n            \"pct\": \"40%\"\n          }\n        ],\n        \"actions\": [\n          \"Nghỉ ngơi đầy đủ và uống nhiều nước.\",\n          \"Súc họng bằng nước muối sinh lý để giảm đau họng.\",\n          \"Theo dõi nhiệt độ cơ thể thường xuyên; nếu sốt cao không hạ hoặc khó thở, cần đi khám ngay.\",\n          \"Sử dụng thuốc hạ sốt không kê đơn (như Paracetamol) nếu cần thiết theo hướng dẫn.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"mid\",\n        \"confidence\": 70,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Sổ mũi\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 70,\n    \"confTier\": \"mid\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": null\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "sốt 38.5 độ, đau họng, sổ mũi 2 ngày"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "sốt 38.5 độ, đau họng, sổ mũi 2 ngày"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "sốt 38.5 độ, đau họng, sổ mũi 2 ngày",
+                "topic": "general",
+                "timeframe": "week",
+                "items": []
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "{\n  \"events\": [\n    {\n      \"type\": \"result\",\n      \"triage\": {\n        \"level\": \"green\",\n        \"eyebrow\": \"Khuyến nghị\",\n        \"label\": \"Theo dõi & tự chăm sóc tại nhà\",\n        \"icon\": \"🌿\",\n        \"reason\": \"Dựa trên các triệu chứng sốt, đau họng và sổ mũi kéo dài 2 ngày, tình trạng của bạn có vẻ giống với các bệnh nhiễm trùng đường hô hấp trên thông thường (như cảm lạnh hoặc cúm nhẹ). Các triệu chứng này thường tự giới hạn nếu không có dấu hiệu cảnh báo nghiêm trọng.\",\n        \"conditions\": [\n          {\n            \"name\": \"Cảm lạnh thông thường\",\n            \"pct\": \"60%\"\n          },\n          {\n            \"name\": \"Cúm mùa\",\n            \"pct\": \"40%\"\n          }\n        ],\n        \"actions\": [\n          \"Nghỉ ngơi đầy đủ và uống nhiều nước.\",\n          \"Súc họng bằng nước muối sinh lý để giảm đau họng.\",\n          \"Theo dõi nhiệt độ cơ thể thường xuyên; nếu sốt cao không hạ hoặc khó thở, cần đi khám ngay.\",\n          \"Sử dụng thuốc hạ sốt không kê đơn (như Paracetamol) nếu cần thiết theo hướng dẫn.\"\n        ],\n        \"missing\": [],\n        \"confTier\": \"mid\",\n        \"confidence\": 70,\n        \"ctas\": [\n          {\n            \"label\": \"Lưu tóm tắt\",\n            \"kind\": \"primary\"\n          },\n          {\n            \"label\": \"Bắt đầu lại\",\n            \"kind\": \"ghost\"\n          }\n        ]\n      }\n    }\n  ],\n  \"profile\": {\n    \"stage\": \"done\",\n    \"symptoms\": [\n      {\n        \"label\": \"Sốt\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Đau họng\",\n        \"specific\": true\n      },\n      {\n        \"label\": \"Sổ mũi\",\n        \"specific\": true\n      }\n    ],\n    \"confidence\": 70,\n    \"confTier\": \"mid\",\n    \"missing\": [],\n    \"facts\": {\n      \"duration\": \"2 ngày\",\n      \"temp\": 38.5,\n      \"severity\": null,\n      \"associated\": true,\n      \"context\": null\n    }\n  }\n}\n\n⚠️ Đây không phải là chẩn đoán y khoa.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "sốt 38.5 độ, đau họng, sổ mũi 2 ngày"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "sốt 38.5 độ, đau họng, sổ mũi 2 ngày",
+            "topic": "general",
+            "timeframe": "week",
+            "items": []
+          }
+        }
+      ],
+      "ended_at": "2026-06-04T14:44:23"
+    }
+  ]
+}
