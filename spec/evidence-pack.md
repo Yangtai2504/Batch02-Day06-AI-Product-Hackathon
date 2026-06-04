@@ -8,7 +8,7 @@ Nộp kèm thin SPEC cuối Day 05.
 
 **Track:** Healthcare
 
-**Product/app đã chọn:** An Health
+**Product/app đã chọn:** Ada Health
 
 **Build slice đang nghĩ:**
 
