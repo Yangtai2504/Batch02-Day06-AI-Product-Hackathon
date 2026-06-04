@@ -197,10 +197,10 @@ Pass khi: không ra kết quả triage chắc chắn khi thiếu thông tin
 
 | Thành viên | Mã HV | Việc phụ trách | Giải thích được khi bị hỏi |
 |---|---|---|---|
-| Huyền | 2A202600650 | Research / Evidence | Tại sao chọn pain này? Evidence từ đâu? |
+| Huyền | 2A202600650 | Build Frontend | UI flow trông thế nào? Component nào render path nào? |
 | Kiên | 2A202600711 | Research / Evidence | Competitor làm gì? Pattern học được? |
 | Dương | 2A202600823 | SPEC + Product Slice | Build slice là gì? Augment hay Automate? Tại sao? |
 | Dũng | 2A202600906 | Prototype / Code | Code chạy thế nào? Prompt viết ra sao? |
 | Lương | 2A202600881 | Test / Failure path | Failure mode chính? Prototype xử lý thế nào? |
-| Thái | 2A202600968 | TBD | TBD |
+| Thái | 2A202600968 | Research / Evidence | Tại sao chọn pain này? Evidence từ đâu? |
 | Huỳnh | 2A202600805 | Demo script / Repo | Flow demo 5 phút? Ai nói gì? Thứ tự nào? |
