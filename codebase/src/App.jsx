@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { createSession, handleUser, setSymptoms, callRealModel } from './lib/triageEngine.js'
+import { loadSessions, upsertSession } from './lib/sessionLog.js'
 import { Cross, Restart } from './components/icons.jsx'
 import SessionHistory from './components/SessionHistory.jsx'
 import Message from './components/Message.jsx'
@@ -14,6 +15,29 @@ import Emergency from './components/Emergency.jsx'
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 const USE_REAL = !!import.meta.env.VITE_TRIAGE_API_URL // bật khi đã trỏ tới backend Gemini
+const clock = () => new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+
+function deriveTitle(items, session) {
+  const sy = session?.symptoms || []
+  if (sy.length) return sy.slice(0, 2).map((s) => s.label).join(' & ')
+  const firstUser = items.find((i) => i.role === 'user')
+  if (firstUser) return firstUser.text.length > 34 ? firstUser.text.slice(0, 34) + '…' : firstUser.text
+  return 'Phiên mới'
+}
+function snapshotProfile(s) {
+  return {
+    symptoms: s.symptoms || [],
+    confidence: s.confidence || 0,
+    confTier: s.confTier || 'none',
+    missing: s.missing || [],
+    facts: s.facts || {},
+    stage: s.stage,
+  }
+}
+function lastLevel(items) {
+  const r = [...items].reverse().find((i) => i.type === 'result')
+  return r?.triage?.level || null
+}
 
 export default function App() {
   const [session, setSession] = useState(createSession)
@@ -23,7 +47,13 @@ export default function App() {
   const [busy, setBusy] = useState(false)
   const [emergency, setEmergency] = useState(null)
 
+  const [sessions, setSessions] = useState(loadSessions)
+  const [sid, setSid] = useState(null)
+  const [reviewing, setReviewing] = useState(null)
+
   const idRef = useRef(0)
+  const sidRef = useRef(null)
+  const startedAtRef = useRef(null)
   const preEmergency = useRef(null)
   const scrollRef = useRef(null)
   const itemsRef = useRef([])
@@ -34,18 +64,38 @@ export default function App() {
   }, [items])
 
   const push = useCallback((item) => {
-    setItems((prev) => [...prev, { id: ++idRef.current, ...item }])
+    setItems((prev) => [...prev, { id: ++idRef.current, at: Date.now(), stamp: clock(), ...item }])
   }, [])
 
   // autoscroll
   useEffect(() => {
     const el = scrollRef.current
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
-  }, [items, typing, quick])
+    if (el && !reviewing) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
+  }, [items, typing, quick, reviewing])
 
+  // Tự lưu phiên hiện tại vào nhật ký (localStorage) sau mỗi lượt
+  useEffect(() => {
+    if (reviewing || !sidRef.current) return
+    if (!items.some((i) => i.role === 'user')) return
+    setSessions(
+      upsertSession({
+        id: sidRef.current,
+        title: deriveTitle(items, session),
+        startedAt: startedAtRef.current,
+        updatedAt: Date.now(),
+        source: USE_REAL ? 'gemini' : 'rule',
+        items,
+        profile: snapshotProfile(session),
+        level: lastLevel(items),
+      }),
+    )
+  }, [items, session, reviewing])
+
+  // meta gắn vào AI message đầu tiên của mỗi lượt: { ms, source }
   const playEvents = useCallback(
-    async (events) => {
+    async (events, meta) => {
       setBusy(true)
+      let firstAi = true
       for (const ev of events) {
         setTyping(true)
         const dwell = ev.type === 'emergency' ? 380 : 620 + Math.min((ev.text || '').length, 80) * 6
@@ -55,11 +105,14 @@ export default function App() {
           setEmergency({ flag: ev.flag })
           break
         }
+        const m = firstAi ? meta : null
         if (ev.type === 'message' || ev.type === 'question') {
-          push({ type: 'message', role: 'ai', text: ev.text, confirm: ev.confirm })
+          push({ type: 'message', role: 'ai', text: ev.text, confirm: ev.confirm, meta: m })
           if (ev.type === 'question') setQuick(ev.quick || null)
+          firstAi = false
         } else if (ev.type === 'result') {
-          push({ type: 'result', triage: ev.triage })
+          push({ type: 'result', triage: ev.triage, meta: m })
+          firstAi = false
         }
         await sleep(170)
       }
@@ -73,20 +126,22 @@ export default function App() {
     async (text) => {
       setBusy(true)
       setTyping(true)
+      const t0 = performance.now()
       try {
         const history = itemsRef.current
           .filter((i) => i.type === 'message')
           .map((i) => ({ role: i.role, text: i.text }))
         const data = await callRealModel(history, text)
+        const ms = data?._meta?.latencyMs ?? Math.round(performance.now() - t0)
         setTyping(false)
         if (data.profile) setSession((s) => ({ ...createSession(), ...data.profile, result: s.result }))
-        await playEvents(data.events || [])
+        await playEvents(data.events || [], { ms, source: 'gemini' })
       } catch (err) {
         setTyping(false)
         console.warn('[An] Backend lỗi, dùng rule-based engine:', err?.message || err)
         const { session: ns, events } = handleUser(session, text)
         setSession(ns)
-        await playEvents(events)
+        await playEvents(events, { source: 'rule' })
       } finally {
         setBusy(false)
       }
@@ -97,6 +152,11 @@ export default function App() {
   const send = useCallback(
     (text) => {
       if (busy) return
+      if (!sidRef.current) {
+        sidRef.current = 's_' + Date.now()
+        startedAtRef.current = Date.now()
+        setSid(sidRef.current)
+      }
       push({ type: 'message', role: 'user', text })
       setQuick(null)
       preEmergency.current = session
@@ -106,12 +166,16 @@ export default function App() {
       }
       const { session: ns, events } = handleUser(session, text)
       setSession(ns)
-      playEvents(events)
+      playEvents(events, { source: 'rule' })
     },
     [busy, session, push, playEvents, runReal],
   )
 
   const reset = useCallback(() => {
+    sidRef.current = null
+    startedAtRef.current = null
+    setSid(null)
+    setReviewing(null)
     setItems([])
     setSession(createSession())
     setQuick(null)
@@ -119,6 +183,13 @@ export default function App() {
     setBusy(false)
     setEmergency(null)
   }, [])
+
+  const openSession = useCallback((rec) => {
+    setReviewing(rec)
+    setQuick(null)
+    setEmergency(null)
+  }, [])
+  const exitReview = useCallback(() => setReviewing(null), [])
 
   const onBack = useCallback(() => {
     setEmergency(null)
@@ -128,14 +199,13 @@ export default function App() {
   const editSymptoms = useCallback(
     (next) => {
       if (USE_REAL) {
-        // Gửi chỉnh sửa như một tin nhắn correction để backend đánh giá lại.
         const labels = next.map((s) => s.label).join(', ')
         send(labels ? `Cập nhật lại triệu chứng của tôi: ${labels}.` : 'Tôi không còn triệu chứng nào như mô tả nữa.')
         return
       }
       const { session: ns, events } = setSymptoms(session, next)
       setSession(ns)
-      if (events.length && !busy) playEvents(events)
+      if (events.length && !busy) playEvents(events, { source: 'rule' })
     },
     [session, busy, playEvents, send],
   )
@@ -163,6 +233,9 @@ export default function App() {
     [reset, push],
   )
 
+  const viewItems = reviewing ? reviewing.items : items
+  const railSession = reviewing ? { ...createSession(), ...reviewing.profile } : session
+
   return (
     <>
       <div className="atmos">
@@ -180,8 +253,11 @@ export default function App() {
             </div>
           </div>
           <div className="topbar__right">
-            <span className="pill-note"><span className="pulse-dot" /> Phiên đang hoạt động</span>
-            {started && (
+            <span className="pill-note">
+              <span className={`pulse-dot ${reviewing ? 'is-idle' : ''}`} />
+              {reviewing ? 'Đang xem lại phiên' : USE_REAL ? 'Gemini · trực tuyến' : 'Phiên đang hoạt động'}
+            </span>
+            {(started || reviewing) && (
               <button className="restart-btn" onClick={reset}>
                 <Restart /> Phiên mới
               </button>
@@ -190,38 +266,59 @@ export default function App() {
         </header>
 
         <div className="workspace">
-          <SessionHistory activeTitle={activeTitle} onNew={reset} />
+          <SessionHistory
+            sessions={sessions}
+            activeId={reviewing ? reviewing.id : sid}
+            isReviewing={!!reviewing}
+            activeTitle={activeTitle}
+            onNew={reset}
+            onOpen={openSession}
+          />
 
-          <ProfileRail session={session} onEditSymptoms={editSymptoms} />
+          <ProfileRail session={railSession} onEditSymptoms={reviewing ? undefined : editSymptoms} />
 
           <main className="chat">
+            <AnimatePresence>
+              {reviewing && (
+                <motion.div
+                  className="review-banner"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  <span>👁 Đang xem lại phiên cũ — chỉ đọc</span>
+                  <button onClick={exitReview}>Về phiên hiện tại</button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div className="chat__scroll" ref={scrollRef}>
               <div className="thread">
-                {!started && <WelcomeHero onPick={send} />}
+                {!started && !reviewing && <WelcomeHero onPick={send} />}
 
                 <AnimatePresence initial={false}>
-                  {items.map((it) =>
+                  {viewItems.map((it) =>
                     it.type === 'result' ? (
                       <motion.div key={it.id} layout>
                         <TriageResult triage={it.triage} onCta={onCta} />
                       </motion.div>
                     ) : (
-                      <Message key={it.id} role={it.role} text={it.text} confirm={it.confirm} />
+                      <Message key={it.id} role={it.role} text={it.text} confirm={it.confirm} stamp={it.stamp} meta={it.meta} />
                     ),
                   )}
                 </AnimatePresence>
 
-                <AnimatePresence>{typing && <Typing key="typing" />}</AnimatePresence>
+                <AnimatePresence>{typing && !reviewing && <Typing key="typing" />}</AnimatePresence>
 
                 <AnimatePresence>
-                  {quick && !typing && !busy && (
+                  {quick && !typing && !busy && !reviewing && (
                     <QuickReplies options={quick} onPick={send} />
                   )}
                 </AnimatePresence>
               </div>
             </div>
 
-            <Composer onSend={send} disabled={busy} locked={!!emergency} />
+            <Composer onSend={send} disabled={busy} locked={!!emergency || !!reviewing} />
 
             <AnimatePresence>
               {emergency && <Emergency flag={emergency.flag} onBack={onBack} />}

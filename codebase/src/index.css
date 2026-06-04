@@ -299,6 +299,10 @@ input, textarea { font-family: inherit; }
   font-size: 10.5px; color: #5c7a64; line-height: 1.4;
   margin: 14px 4px 2px; opacity: 0.85;
 }
+.history__empty {
+  font-size: 12px; color: #4f6c57; line-height: 1.5;
+  padding: 6px 8px; font-style: italic; opacity: 0.9;
+}
 
 /* ============================================================
    Profile rail
@@ -449,6 +453,21 @@ input, textarea { font-family: inherit; }
   overflow: hidden;
   position: relative;
 }
+.review-banner {
+  flex: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 11px 22px;
+  background: linear-gradient(180deg, #eef4ec, #e6efe6);
+  border-bottom: 1px solid var(--card-edge);
+  font-size: 13px; color: var(--ink-2);
+}
+.review-banner button {
+  font-size: 12.5px; font-weight: 600; color: var(--sage-deep);
+  background: var(--card); border: 1px solid var(--card-edge);
+  padding: 7px 14px; border-radius: 100px;
+  transition: transform 0.16s var(--ease), background 0.2s;
+}
+.review-banner button:hover { background: var(--sage); color: #eef6ef; transform: translateY(-1px); }
 .chat__scroll {
   flex: 1;
   min-height: 0;
@@ -547,7 +566,17 @@ input, textarea { font-family: inherit; }
 .msg__time {
   font-size: 10.5px; color: var(--ink-faint); font-family: var(--font-mono);
   padding: 0 4px;
+  display: inline-flex; align-items: center; gap: 8px;
 }
+.run-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; letter-spacing: 0.02em;
+  padding: 2px 8px; border-radius: 100px;
+  border: 1px solid transparent;
+}
+.run-tag.gemini { background: var(--sage-tint-2); color: var(--sage-deep); border-color: #cce0d1; }
+.run-tag.rule { background: var(--paper-2); color: var(--ink-faint); }
+.pulse-dot.is-idle { background: var(--ink-faint); animation: none; box-shadow: none; }
 .bubble strong { font-weight: 600; }
 .bubble .confirm-line {
   display: block;
